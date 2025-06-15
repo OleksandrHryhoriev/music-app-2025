@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root {
+   --backgroundMain: #ffffff;
+   --textMainColor: #121212;
+}
+
+@theme inline {
+   --color-background: var(--backgroundMain);
+   --color-foreground: var(--textMainColor);
+   --font-spaceage: var(--font-space-age);
+}
+
+@media (prefers-color-scheme: dark) {
+   :root {
+      --backgroundMain: #121212;
+      --textMainColor: #ffffff;
+   }
+}
+
+body {
+   background: var(--backgroundMain);
+   color: var(--textMainColor);
+   font-family: var(--font-space-age);
+}
