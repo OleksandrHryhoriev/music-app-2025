@@ -1,0 +1,6 @@
+import { auth } from "@/auth";
+import { cache } from "react";
+
+export const getCachedSession = cache(async () => {
+   return await auth();
+});

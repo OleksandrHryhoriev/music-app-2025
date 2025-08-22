@@ -8,12 +8,14 @@
 @theme inline {
    --color-background: var(--backgroundMain);
    --color-foreground: var(--textMainColor);
-   --font-spaceage: var(--font-space-age);
+   --font-bitsumishi: var(--font-bitsumishi);
+   --font-roboto: var(--font-roboto);
+   --font-ubuntu: var(--font-ubuntu);
 }
 
 @media (prefers-color-scheme: dark) {
    :root {
-      --backgroundMain: #121212;
+      --backgroundMain: black;
       --textMainColor: #ffffff;
    }
 }
@@ -21,5 +23,8 @@
 body {
    background: var(--backgroundMain);
    color: var(--textMainColor);
-   font-family: var(--font-space-age);
+   font-family: var(--font-ubuntu);
+   font-size: 16px;
+   line-height: 1;
+   height: 100dvh;
 }

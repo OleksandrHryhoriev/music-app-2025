@@ -1,0 +1,30 @@
+import * as React from "react";
+
+type Props = React.SVGProps<SVGSVGElement> & { title?: string };
+
+export default function CollapseIcon({ title = "Collapse", ...props }: Props) {
+   return (
+      <svg
+         className="opacity-70 hover:opacity-100  duration-300"
+         width="100%"
+         height="100%"
+         viewBox="0 0 24 24"
+         aria-hidden={title ? undefined : true}
+         role={title ? "img" : "presentation"}
+         {...props}
+      >
+         {title ? <title>{title}</title> : null}
+         <g
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+         >
+            <rect x="2" y="2" width="20" height="20" rx="2" />
+            <path d="M8 4v16" />
+            <path d="M16 9l-3 3 3 3" />
+         </g>
+      </svg>
+   );
+}

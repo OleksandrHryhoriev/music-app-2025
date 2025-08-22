@@ -1,16 +1,29 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
+// import { Roboto } from "next/font/google";
+import { Ubuntu } from "next/font/google";
 import "./globals.css";
 
-const spaceAge = localFont({
-   src: [
-      {
-         path: "./fonts/spaceagecyrillicregular.ttf",
-         weight: "400",
-         style: "normal",
-      },
-   ],
-   variable: "--font-space-age",
+// const bitsumishi = localFont({
+//    src: [
+//       {
+//          path: "./fonts/bitsumishi.ttf",
+//          weight: "400",
+//          style: "normal",
+//       },
+//    ],
+//    variable: "--font-bitsumishi",
+// });
+
+// const roboto = Roboto({
+//    weight: "400",
+//    display: "swap",
+//    variable: "--font-roboto",
+// });
+const ubuntu = Ubuntu({
+   weight: "400",
+   display: "swap",
+   variable: "--font-ubuntu",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +38,7 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="en">
-         <body className={spaceAge.variable}>{children}</body>
+         <body className={ubuntu.variable}>{children}</body>
       </html>
    );
 }
