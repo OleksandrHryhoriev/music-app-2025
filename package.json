@@ -3,7 +3,7 @@
    "version": "0.1.0",
    "private": true,
    "scripts": {
-      "dev": "next dev -H 172.16.0.2 --experimental-https --turbopack ",
+      "dev": "next dev -H 192.168.0.106 --experimental-https --turbopack ",
       "build": "next build",
       "start": "next start",
       "lint": "next lint"
@@ -15,9 +15,12 @@
       "axios": "^1.10.0",
       "next": "15.3.3",
       "next-auth": "^5.0.0-beta.28",
+      "overlayscrollbars-react": "^0.5.6",
       "react": "^19.0.0",
       "react-dom": "^19.0.0",
-      "sass": "^1.90.0"
+      "sass": "^1.90.0",
+      "zod": "^4.3.6",
+      "zustand": "^5.0.12"
    },
    "devDependencies": {
       "@eslint/eslintrc": "^3",
@@ -25,6 +28,7 @@
       "@types/node": "^20",
       "@types/react": "^19",
       "@types/react-dom": "^19",
+      "@types/spotify-web-playback-sdk": "^0.1.19",
       "eslint": "^9",
       "eslint-config-next": "15.3.3",
       "prisma": "^6.14.0",

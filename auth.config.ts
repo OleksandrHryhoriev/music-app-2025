@@ -4,7 +4,7 @@ import {
    SPOTIFY_CLIENT_ID,
    SPOTIFY_CLIENT_SECRET,
    SPOTIFY_LOGIN_URL,
-} from "./lib/spotify-consts";
+} from "./src/assets/spotify/spotify-consts";
 
 export default {
    providers: [

@@ -1,8 +1,15 @@
+@import "overlayscrollbars/overlayscrollbars.css";
 @import "tailwindcss";
 
 :root {
    --backgroundMain: #ffffff;
+   --backgroundSecondary: #1c1c1c;
    --textMainColor: #121212;
+   --textSecondaryColor: #2d2d2d;
+   --textActiveColor: #1ed760;
+   --bgActiveHover: #4e4e4e;
+   --bgActive: #383838;
+   --bgHover: #272727;
 }
 
 @theme inline {
@@ -17,6 +24,54 @@
    :root {
       --backgroundMain: black;
       --textMainColor: #ffffff;
+      --textSecondaryColor: #b3b3b3;
+   }
+}
+
+@layer utilities {
+   /* Custom scrollbar */
+   /* .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+   }
+   .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+   }
+   .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: transparent;
+   }
+   .custom-scrollbar:hover {
+      background-color: transparent;
+   }
+   .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+      background-color: #4d4d4d;
+   }
+   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background-color: #737373;
+   } */
+
+   /* Secondary text style */
+   .secondary-text,
+   .secondary-hovered-text {
+      color: var(--textSecondaryColor);
+      transition: all 0.3s ease;
+   }
+   .secondary-hovered-text:hover {
+      color: var(--textMainColor);
+      text-decoration: underline;
+   }
+
+   .player-button {
+      min-width: 32px;
+      height: 32px;
+      padding: 8px;
+      cursor: pointer;
+      color: var(--textSecondaryColor);
+      transition: all 0.2s ease;
+   }
+   .player-button:hover {
+      color: var(--textMainColor);
+      transform: scale(1.05);
    }
 }
 
@@ -27,4 +82,5 @@ body {
    font-size: 16px;
    line-height: 1;
    height: 100dvh;
+   user-select: none;
 }

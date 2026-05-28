@@ -1,16 +1,16 @@
-import SignIn from "../SignIn";
-import User from "../User";
-import SignOut from "../SignOut";
-import { getCachedSession } from "@/src/lib/authSession";
+import SignIn from "./SignIn";
+import User from "./User";
+import SignOut from "./SignOut";
+import { getUser } from "@/src/lib/auth/authSession";
 
 const AuthBlock = async () => {
-   const session = await getCachedSession();
+   const user = await getUser();
 
-   if (!session?.user) return <SignIn />;
+   if (!user) return <SignIn />;
 
    return (
       <div className="flex gap-4 items-center">
-         <User user={session.user} />
+         <User user={user} />
          <SignOut />
       </div>
    );

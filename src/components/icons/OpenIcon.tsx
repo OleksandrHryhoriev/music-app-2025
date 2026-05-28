@@ -21,7 +21,7 @@ export default function OpenIcon({ title = "Open", ...props }: Props) {
             strokeLinejoin="round"
          >
             <rect x="2" y="2" width="20" height="20" rx="2" />
-            <path d="M8 4v16" />
+            <path d="M9 3v18" />
             <path d="M14 9l3 3-3 3" />
          </g>
       </svg>

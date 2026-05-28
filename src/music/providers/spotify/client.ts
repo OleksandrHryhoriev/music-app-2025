@@ -1,0 +1,79 @@
+import { MusicProviderClient } from "../types";
+import {
+   SpotifyAlbumListSchema,
+   SpotifyArtistListSchema,
+   SpotifyArtistSchema,
+   SpotifyCurrentTrackSchema,
+   SpotifyPlaylistListSchema,
+   SpotifyPlaylistSchema,
+} from "./schemas";
+import getSpotifyPath, { SPOTIFY_PATH } from "./endpoints";
+import {
+   ArtistType,
+   CurrentTrackType,
+   LibItemType,
+   PlaylistType,
+} from "@/src/types/types";
+import requestMusicApi from "../../api/requestMusicApi";
+import fetchMusicApi from "../../api/fetchMusicApi";
+import { handleApiErrors } from "../../errors";
+
+export const sporifyClient: MusicProviderClient = {
+   // Library
+   async getPlaylistList() {
+      const path = getSpotifyPath(SPOTIFY_PATH.library.playlistList);
+      const data = await fetchMusicApi(path);
+      const parsed = SpotifyPlaylistListSchema.parse(data);
+
+      return parsed.items as LibItemType[];
+   },
+   async getAlbumList() {
+      const path = getSpotifyPath(SPOTIFY_PATH.library.albumList);
+      const data = await fetchMusicApi(path);
+      const parsed = SpotifyAlbumListSchema.parse(data);
+
+      return parsed.items as LibItemType[];
+   },
+   async getArtistList() {
+      const path = getSpotifyPath(SPOTIFY_PATH.library.artistList);
+      const data = await fetchMusicApi(path);
+      const parsed = SpotifyArtistListSchema.parse(data);
+
+      return parsed.items as LibItemType[];
+   },
+   async getLibrary() {
+      const p = await this.getPlaylistList?.();
+      const art = await this.getArtistList?.();
+      const alb = await this.getAlbumList?.();
+
+      return [...(p ?? []), ...(art ?? []), ...(alb ?? [])];
+   },
+
+   // Main page
+   async getPlaylist(id) {
+      const path = getSpotifyPath(SPOTIFY_PATH.playlist + id);
+      const [error, data] = await requestMusicApi(path, SpotifyPlaylistSchema);
+
+      if (!error) {
+         return data as PlaylistType;
+      }
+      return handleApiErrors(error);
+   },
+   async getArtist(id) {
+      const path = getSpotifyPath(SPOTIFY_PATH.artist + id);
+      const [error, data] = await requestMusicApi(path, SpotifyArtistSchema);
+
+      if (!error) {
+         return data as ArtistType;
+      }
+      return handleApiErrors(error);
+   },
+   // Player actions
+   async getCurrentTrack() {
+      const path = getSpotifyPath(SPOTIFY_PATH.player.current);
+      const data = await fetchMusicApi(path);
+      const parsed = SpotifyCurrentTrackSchema.parse(data);
+
+      return parsed as CurrentTrackType;
+   },
+};

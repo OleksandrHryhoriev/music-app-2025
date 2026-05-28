@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+.tracklist_header::after {
+   content: "";
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   height: 1px;
+   background-color: var(--textSecondaryColor);
+   opacity: 0.2;
+}
+
+.tracklist_row {
+   display: grid;
+   gap: 16px;
+   grid-template-columns: [index] 14px [first] minmax(200px, 4fr) [last] minmax(
+         60px,
+         1fr
+      );
+   align-items: center;
+}
+
+.track-added {
+   display: none;
+}
+@media (min-width: 1024px) {
+   .tracklist_row {
+      grid-template-columns:
+         [index] 14px [first] minmax(200px, 4fr)
+         [var1] minmax(150px, 2fr) [last] minmax(60px, 1fr);
+   }
+}
+@media (min-width: 1280px) {
+   .tracklist_row {
+      grid-template-columns:
+         [index] 14px [first] minmax(200px, 4fr) [var1] minmax(150px, 2fr)
+         [var2] minmax(100px, 2fr) [last] minmax(60px, 1fr);
+   }
+   .track-added {
+      display: block;
+      justify-self: center;
+   }
+}
