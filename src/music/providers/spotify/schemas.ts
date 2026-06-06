@@ -270,6 +270,8 @@ export const SpotifyPlaybackTrackSchema = z
 export const SpotifyPlayerStateSchema = z.object({
    paused: z.boolean(),
    position: z.number(),
+   shuffle: z.boolean(),
+   repeat_mode: z.union([z.literal(0), z.literal(1), z.literal(2)]),
    track_window: z.object({
       current_track: SpotifyPlaybackTrackSchema,
       previous_tracks: z.array(SpotifyPlaybackTrackSchema),

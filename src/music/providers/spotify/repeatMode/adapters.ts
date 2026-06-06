@@ -1,6 +1,7 @@
 import { RepeatMode } from "@/src/music/player/repeatMode";
 
 export type SpotifyRepeatMode = "off" | "context" | "track";
+export type SpotifySDKRepeatMode = 0 | 1 | 2;
 
 export function toSpotifyRepeat(mode: RepeatMode): SpotifyRepeatMode {
    switch (mode) {
@@ -15,13 +16,13 @@ export function toSpotifyRepeat(mode: RepeatMode): SpotifyRepeatMode {
    }
 }
 
-export function fromSpotifyRepeat(mode: SpotifyRepeatMode): RepeatMode {
+export function fromSpotifySDKRepeat(mode: SpotifySDKRepeatMode): RepeatMode {
    switch (mode) {
-      case "off":
+      case 0:
          return "off";
-      case "context":
+      case 1:
          return "all";
-      case "track":
+      case 2:
          return "one";
       default:
          return "off";

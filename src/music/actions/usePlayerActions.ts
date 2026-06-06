@@ -3,7 +3,7 @@
 import { PlaybackTrack } from "@/src/types/types";
 import { getNextRepeat } from "../player/repeatMode";
 import { usePlayerStore } from "../stores/playerStore";
-import { getNextIndex, getPrevIndex } from "../player/getNextPrevIndex";
+import { getCurrentProgress } from "../selectors/selectors";
 
 export function usePlayerActions() {
    const state = usePlayerStore.getState();
@@ -14,22 +14,24 @@ export function usePlayerActions() {
       isPlaying,
       repeatMode,
       shuffleState,
+      nextTrack,
+      prevTrack,
    } = state;
 
    const play = (track: PlaybackTrack, index: number) => {
+      if (contextUri) {
+         engine?.play(contextUri, index);
+      } else {
+         engine?.play(track.uri, null);
+      }
       setPlayer({
          currentIndex: index,
          track,
          isPlaying: true,
          duration: track.duration,
          progress: 0,
+         sdkTimeStamp: performance.now(),
       });
-
-      if (contextUri) {
-         engine?.play(contextUri, index);
-      } else {
-         engine?.play(track.uri, null);
-      }
    };
 
    const togglePlay = () => {
@@ -68,47 +70,30 @@ export function usePlayerActions() {
    };
 
    const next = () => {
+      if (nextTrack === null) return;
       if (engine?.playbackType === "local") {
-         setPlayer((prev) => ({
-            currentIndex: prev.currentIndex + 1,
-            progress: 0,
-         }));
-         engine?.next();
+         engine.next();
          return;
       }
-
-      if (contextUri === null) return; //TODO handle if contextUri is not supported by musicAPI
-
-      const nextIndex = getNextIndex(state);
-      if (nextIndex === null) return;
-      setPlayer({
-         currentIndex: nextIndex,
-         progress: 0,
-      });
-      engine?.play(contextUri, nextIndex);
+      engine?.play(nextTrack.uri, null);
+      //TODO handle adding new track to "nextTrack"
+      //TODO handle autoplay
+      //TODO work with context and queue
    };
 
    const prev = () => {
-      const prevIndex = getPrevIndex(state);
-      if (prevIndex === null) return;
-      if (prevIndex === state.currentIndex) {
+      const progress = getCurrentProgress(state);
+      if (progress > 3000) {
          setPlayer({ progress: 0 });
          engine?.seek(0);
          return;
       }
-
-      setPlayer({
-         currentIndex: prevIndex,
-         progress: 0,
-      });
-
+      if (prevTrack === null) return;
       if (engine?.playbackType === "local") {
-         engine?.previous();
+         engine.previous();
          return;
       }
-
-      if (contextUri === null) return; //TODO handle if contextUri is not supported by musicAPI
-      engine?.play(contextUri, prevIndex);
+      engine?.play(prevTrack.uri, null);
    };
 
    return { play, togglePlay, seek, shuffle, repeat, next, prev };

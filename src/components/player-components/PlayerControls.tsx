@@ -60,7 +60,6 @@ const PlayerControls = () => {
                   <NextIcon />
                </span>
             </button>
-
             <button
                className="player-repeat player-button relative"
                onClick={() => repeat()}
@@ -80,6 +79,16 @@ const PlayerControls = () => {
                   />
                </span>
             </button>
+            {/* <button
+               className="player-next player-button"
+               onClick={() => {
+                  console.log(usePlayerStore.getState());
+               }}
+            >
+               <span>
+                  <NextIcon />
+               </span>
+            </button> */}
          </div>
          <div className="player-playback w-full">
             <PlaybackBar />

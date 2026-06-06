@@ -15,6 +15,8 @@ export type PlayerState = {
    contextTracks: string[];
    currentIndex: number;
    track: PlaybackTrack | null;
+   nextTrack: PlaybackTrack | null;
+   prevTrack: PlaybackTrack | null;
    isPlaying: boolean;
    duration: number;
    progress: number;
@@ -34,6 +36,8 @@ export const usePlayerStore = create<PlayerState>((set) => ({
    contextTracks: [],
    currentIndex: 0,
    track: null,
+   nextTrack: null,
+   prevTrack: null,
    isPlaying: false,
    duration: 0,
    progress: 0,

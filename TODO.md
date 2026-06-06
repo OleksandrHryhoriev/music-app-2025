@@ -1,12 +1,4 @@
-- !!!! Handle getMusicProviders and getProviderFromSession flow. Errors when unauthorized or unexpected provider. Remove 'return "spotify"' from catch.
-
-- Solve provider info import in refreshAccessToken. it shouldn't be spotify only
-
 - Add posibility to have several providers for one USER
-
-- Handle repeat mode. PlayerControls should just switch between cases of current provider
-
-- Solve progress jumps when clicking repeat or shuffle btn
 
 ===========================================================================================
 

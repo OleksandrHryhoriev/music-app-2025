@@ -6,6 +6,7 @@ import { SetPlayerType } from "@/src/music/stores/playerStore";
 import { getCurrentProgress } from "@/src/music/selectors/selectors";
 import getSpotifyPath, { SPOTIFY_PATH } from "../endpoints";
 import postPlayerState from "@/src/music/player/postPlayerState";
+import { fromSpotifySDKRepeat } from "../repeatMode/adapters";
 
 export function setSpotifyLocalPlayer(
    engine: SpotifyEngine,
@@ -55,15 +56,22 @@ export function setSpotifyLocalPlayer(
 
          setPlayer((prev) => {
             const realProgress = getCurrentProgress(prev);
-            if (state.position < realProgress - 500) {
-               return {};
+            if (
+               track.id === prev.track?.id &&
+               state.position < realProgress - 500
+            ) {
+               return { sdkTimeStamp: performance.now() };
             }
 
             return {
                track,
+               nextTrack: state.track_window.next_tracks[0] || null,
+               prevTrack: state.track_window.previous_tracks[0] || null,
                isPlaying: !state.paused,
                duration: track.duration,
                progress: state.position,
+               shuffleState: state.shuffle,
+               repeatMode: fromSpotifySDKRepeat(state.repeat_mode),
                sdkTimeStamp: performance.now(),
             };
          });
