@@ -1,10 +1,11 @@
 "use client";
 
 import formatTime from "@/src/utils/functions/formatTime";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PlaybackProgressBar from "./PlaybackProgressBar";
 import { usePlayerStore } from "@/src/music/stores/playerStore";
 import { getCurrentProgress } from "@/src/music/selectors/selectors";
+import { usePlayerActions } from "@/src/music/actions/usePlayerActions";
 
 const PlaybackBar = () => {
    const [playbackTime, setPlaybackTime] = useState<number>(0);
@@ -12,13 +13,7 @@ const PlaybackBar = () => {
    const duration = usePlayerStore((s) => s.duration);
    const isPlaying = usePlayerStore((s) => s.isPlaying);
 
-   useEffect(() => {
-      console.log("Player render");
-
-      return () => {
-         console.log("Player unmouted");
-      };
-   }, []);
+   const { seek } = usePlayerActions();
 
    useEffect(() => {
       if (!isPlaying) return;
@@ -46,6 +41,11 @@ const PlaybackBar = () => {
       return () => cancelAnimationFrame(frame);
    }, [isPlaying]);
 
+   const handleOnChange = (value: number) => {
+      setPlaybackTime(value);
+      seek(value);
+   };
+
    return (
       <div className="playback-bar w-full flex items-center justify-between gap-2">
          <div className="playback-position secondary-text text-xs text-right min-w-12">
@@ -54,7 +54,7 @@ const PlaybackBar = () => {
          <div className="playback-progressbar flex-auto ">
             <PlaybackProgressBar
                playbackTime={playbackTime}
-               onChange={setPlaybackTime}
+               onChange={handleOnChange}
                duration={duration}
             />
          </div>

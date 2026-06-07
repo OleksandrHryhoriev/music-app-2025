@@ -35,6 +35,7 @@ export const SPOTIFY_PATH = {
       repeat: "/me/player/repeat?state=", //+context, track, off
       shuffle: "/me/player/shuffle?state=", //+boolean
       seek: "/me/player/seek?position_ms=", //+ms
+      volume: "/me/player/volume?volume_percent=", //+value(0-100)
    },
    playlist: "/playlists/", // + id
    artist: "/artists/", // + id

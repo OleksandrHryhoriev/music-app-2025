@@ -9,7 +9,8 @@ type PlayerAction =
    | "next"
    | "previous"
    | "repeat"
-   | "shuffle";
+   | "shuffle"
+   | "volume";
 
 type RequestBody<T = unknown> = {
    path: string;

@@ -96,5 +96,10 @@ export function usePlayerActions() {
       engine?.play(prevTrack.uri, null);
    };
 
-   return { play, togglePlay, seek, shuffle, repeat, next, prev };
+   const setVolume = (value: number) => {
+      console.log(value);
+      engine?.volume(value);
+   };
+
+   return { play, togglePlay, seek, shuffle, repeat, next, prev, setVolume };
 }

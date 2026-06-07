@@ -1,62 +1,55 @@
-import formatTime from "@/src/utils/functions/formatTime";
 import { useEffect, useRef, useState } from "react";
 
-type PlaybackProgressBarProps = {
-   playbackTime: number;
-   duration: number;
+type VolumeBarProps = {
+   volume: number;
    step?: number;
    onChange: (value: number) => void;
 };
 
-const PlaybackProgressBar = ({
-   playbackTime,
-   duration,
-   step = 5000,
-   onChange,
-}: PlaybackProgressBarProps) => {
-   const progressbarRef = useRef<HTMLDivElement>(null);
-   const [playbackValue, setPlaybackValue] = useState<number>(playbackTime);
+const VolumeBar = ({ volume, step = 10, onChange }: VolumeBarProps) => {
+   const volumeBarRef = useRef<HTMLDivElement>(null);
+   const [volumeValue, setVolumeValue] = useState<number>(volume);
    const [hoverValue, setHoverValue] = useState<number | null>(null);
    const [dragging, setDragging] = useState<boolean>(false);
 
    useEffect(() => {
       if (!dragging) {
-         setPlaybackValue(playbackTime);
+         setVolumeValue(volume);
       }
-   }, [playbackTime, dragging]);
+   }, [volume, dragging]);
 
-   function getMousePosition(clientX: number): number {
-      if (!progressbarRef.current) return playbackTime;
+   function getPointerPosition(clientX: number): number {
+      if (!volumeBarRef.current) return volume;
 
-      const rect = progressbarRef.current.getBoundingClientRect();
+      const rect = volumeBarRef.current.getBoundingClientRect();
       const percent = (clientX - rect.left) / rect.width;
 
       const clamped = Math.min(1, Math.max(0, percent));
 
-      return Math.round(clamped * duration);
+      return Math.round(clamped * 100);
    }
 
    const handlePointerMove = (e: React.PointerEvent) => {
-      const value = getMousePosition(e.clientX);
+      const value = getPointerPosition(e.clientX);
 
       setHoverValue(value);
       if (dragging) {
-         setPlaybackValue(value);
+         setVolumeValue(value);
       }
    };
 
    function handlePointerDown(e: React.PointerEvent) {
       (e.target as HTMLElement).setPointerCapture(e.pointerId);
 
-      const value = getMousePosition(e.clientX);
+      const value = getPointerPosition(e.clientX);
 
       setDragging(true);
-      setPlaybackValue(value);
+      setVolumeValue(value);
    }
 
    function handlePointerUp(e: React.PointerEvent) {
       (e.target as HTMLElement).releasePointerCapture(e.pointerId);
-      const value = getMousePosition(e.clientX);
+      const value = getPointerPosition(e.clientX);
 
       setDragging(false);
       onChange(value);
@@ -69,7 +62,7 @@ const PlaybackProgressBar = ({
    }
 
    function handleKeyDown(e: React.KeyboardEvent) {
-      let newValue = playbackTime;
+      let newValue = volume;
 
       switch (e.key) {
          case "ArrowRight":
@@ -87,7 +80,7 @@ const PlaybackProgressBar = ({
             break;
 
          case "End":
-            newValue = duration;
+            newValue = 100;
             break;
 
          default:
@@ -96,64 +89,51 @@ const PlaybackProgressBar = ({
 
       e.preventDefault();
 
-      newValue = Math.max(0, Math.min(duration, newValue));
+      newValue = Math.max(0, Math.min(100, newValue));
       onChange(newValue);
    }
 
-   const playbackPercent: string = ((playbackValue / duration) * 100).toFixed(
-      3,
-   );
-   const hoverPercent: string | null = hoverValue
-      ? ((hoverValue / duration) * 100).toFixed(3)
-      : null;
-
    return (
       <div
-         ref={progressbarRef}
+         ref={volumeBarRef}
          role="slider"
          tabIndex={0}
          aria-valuemin={0}
-         aria-valuemax={duration}
-         aria-valuenow={playbackValue}
-         className="progressbar w-full py-1 relative cursor-pointer"
+         aria-valuemax={100}
+         aria-valuenow={volumeValue}
+         className="volumebar w-full py-1 relative cursor-pointer"
          onPointerMove={handlePointerMove}
          onPointerDown={handlePointerDown}
          onPointerUp={handlePointerUp}
          onPointerLeave={handlePointerLeave}
          onKeyDown={handleKeyDown}
       >
-         <div className="progressbar-bg w-full h-1 rounded-sm bg-(--textSecondaryColor) opacity-50"></div>
+         <div className="volumebar-bg w-full h-1 rounded-sm bg-(--textSecondaryColor) opacity-50"></div>
          <div
             style={
                {
-                  width: `${playbackPercent}%`,
+                  width: `${volumeValue}%`,
                } as React.CSSProperties
             }
             //TODO: transition
-            className={`progressbar-current h-1 rounded-sm ${hoverValue ? "bg-(--textActiveColor)" : "bg-(--textMainColor)"} absolute z-5 top-1 left-0`}
+            className={`volumebar-current h-1 rounded-sm ${hoverValue ? "bg-(--textActiveColor)" : "bg-(--textMainColor)"} absolute z-5 top-1 left-0`}
          >
             {hoverValue !== null && (
                <span className="block w-2.5 h-2.5 rounded-lg bg-(--textMainColor) absolute z-15 -right-1.25 -top-0.75"></span>
             )}
          </div>
-         {hoverPercent && (
+         {hoverValue && (
             <div
                style={
                   {
-                     width: `${hoverPercent}%`,
+                     width: `${hoverValue}%`,
                   } as React.CSSProperties
                }
-               className="progressbar-hover h-1 rounded-sm bg-(--textMainColor) absolute z-2 top-1 left-0"
-            >
-               {hoverValue && (
-                  <div className="absolute -top-7 right-0 translate-x-1/2 px-1.5 py-0.25 rounded-sm bg-(--bgActive) text-sm text-(--textMainColor) flex items-center justify-center">
-                     {formatTime(hoverValue)}
-                  </div>
-               )}
-            </div>
+               className="volumebar-hover h-1 rounded-sm bg-(--textMainColor) absolute z-2 top-1 left-0"
+            ></div>
          )}
       </div>
    );
 };
 
-export default PlaybackProgressBar;
+export default VolumeBar;

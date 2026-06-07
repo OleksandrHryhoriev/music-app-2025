@@ -5,10 +5,11 @@ export type BaseEngine = {
    resume: () => Promise<void>;
    pause: () => Promise<void>;
    seek: (positionMs: number) => Promise<void>;
-   repeat: (state: RepeatMode) => Promise<void>;
+   repeat: (mode: RepeatMode) => Promise<void>;
    shuffle: (state: boolean) => Promise<void>;
    next: () => Promise<void>;
    previous: () => Promise<void>;
+   volume: (value: number) => Promise<void>;
 };
 
 export type SpotifyEngine = BaseEngine & {

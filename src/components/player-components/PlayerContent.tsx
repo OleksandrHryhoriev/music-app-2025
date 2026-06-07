@@ -1,4 +1,5 @@
 import PlayerControls from "./PlayerControls";
+import PlayerOthers from "./PlayerOthers";
 import PlayerTrackInfo from "./PlayerTrackInfo";
 
 const PlayerContent = () => {
@@ -11,7 +12,7 @@ const PlayerContent = () => {
             <PlayerControls />
          </div>
          <div className="other-controls h-full w-3/10 min-w-45 flex items-center">
-            Buttons
+            <PlayerOthers />
          </div>
       </div>
    );

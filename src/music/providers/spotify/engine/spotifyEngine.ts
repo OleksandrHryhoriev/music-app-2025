@@ -68,5 +68,9 @@ export function createSpotifyEngine(): SpotifyEngine {
          const apiPath = getSpotifyPath(SPOTIFY_PATH.player.previous);
          await postPlayerState(apiPath, "previous", "POST");
       },
+      async volume(value) {
+         const apiPath = getSpotifyPath(SPOTIFY_PATH.player.volume) + value;
+         await postPlayerState(apiPath, "volume", "PUT");
+      },
    };
 }
