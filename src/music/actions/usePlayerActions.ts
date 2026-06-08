@@ -97,7 +97,6 @@ export function usePlayerActions() {
    };
 
    const setVolume = (value: number) => {
-      console.log(value);
       engine?.volume(value);
    };
 

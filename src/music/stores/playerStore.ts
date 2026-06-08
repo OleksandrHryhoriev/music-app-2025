@@ -4,6 +4,7 @@ import { PlaybackTrack } from "@/src/types/types";
 import { create } from "zustand";
 import { PlaybackEngine } from "../engine/types";
 import { RepeatMode } from "../player/repeatMode";
+import { saveVolume } from "@/src/utils/volumeStorage";
 
 export type SetPlayerType = (
    updater: Partial<PlayerState> | ((s: PlayerState) => Partial<PlayerState>),
@@ -25,9 +26,11 @@ export type PlayerState = {
    shuffleState: boolean;
    lastUpdated: number;
    deviceId: string | null;
+   volume: number;
 
    setEngine: (engine: PlaybackEngine) => void;
    setPlayer: SetPlayerType;
+   setVolume: (volume: number) => void;
 };
 
 export const usePlayerStore = create<PlayerState>((set) => ({
@@ -46,6 +49,7 @@ export const usePlayerStore = create<PlayerState>((set) => ({
    shuffleState: false,
    lastUpdated: 0,
    deviceId: null,
+   volume: 0,
 
    setEngine: (engine) => set({ engine }),
    setPlayer: (updater) =>
@@ -57,4 +61,8 @@ export const usePlayerStore = create<PlayerState>((set) => ({
             lastUpdated: performance.now(),
          };
       }),
+   setVolume: (volume) => {
+      saveVolume(volume);
+      set({ volume });
+   },
 }));

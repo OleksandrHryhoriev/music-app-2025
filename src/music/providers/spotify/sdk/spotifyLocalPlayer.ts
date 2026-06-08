@@ -2,7 +2,7 @@
 
 import { SpotifyEngine } from "@/src/music/engine/types";
 import { SpotifyPlayerStateSchema } from "../schemas";
-import { SetPlayerType } from "@/src/music/stores/playerStore";
+import { SetPlayerType, usePlayerStore } from "@/src/music/stores/playerStore";
 import { getCurrentProgress } from "@/src/music/selectors/selectors";
 import getSpotifyPath, { SPOTIFY_PATH } from "../endpoints";
 import postPlayerState from "@/src/music/player/postPlayerState";
@@ -28,7 +28,7 @@ export function setSpotifyLocalPlayer(
             cb(accessToken);
          },
          // getOAuthToken: (cb) => cb(accessToken),
-         volume: 0.5,
+         // volume: 0.5,
       });
 
       engine.sdk = player;
@@ -43,6 +43,9 @@ export function setSpotifyLocalPlayer(
          if (res.ok) {
             console.log("Player ready");
          }
+
+         const volume = usePlayerStore.getState().volume / 100;
+         player.setVolume(volume);
       });
 
       player.addListener("player_state_changed", (rawState: unknown) => {
