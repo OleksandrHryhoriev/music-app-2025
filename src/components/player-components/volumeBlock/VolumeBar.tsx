@@ -122,7 +122,7 @@ const VolumeBar = ({ volume, step = 10, onChange }: VolumeBarProps) => {
                <span className="block w-2.5 h-2.5 rounded-lg bg-(--textMainColor) absolute z-15 -right-1.25 -top-0.75"></span>
             )}
          </div>
-         {hoverValue && (
+         {hoverValue ? (
             <div
                style={
                   {
@@ -131,7 +131,7 @@ const VolumeBar = ({ volume, step = 10, onChange }: VolumeBarProps) => {
                }
                className="volumebar-hover h-1 rounded-sm bg-(--textMainColor) absolute z-2 top-1 left-0"
             ></div>
-         )}
+         ) : null}
       </div>
    );
 };

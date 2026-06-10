@@ -8,7 +8,7 @@ const PlayerContent = () => {
          <div className="now-playing-info h-full w-3/10 min-w-45 flex items-center">
             <PlayerTrackInfo />
          </div>
-         <div className="player-controls h-full w-45/100 max-w-180">
+         <div className="player-controls h-full w-45/100 max-w-180 min-w-60">
             <PlayerControls />
          </div>
          <div className="other-controls h-full w-3/10 min-w-45 flex items-center">

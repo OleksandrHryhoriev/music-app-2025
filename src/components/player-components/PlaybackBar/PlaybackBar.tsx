@@ -24,6 +24,8 @@ const PlaybackBar = () => {
          const current = getCurrentProgress(state);
 
          if (state.isPlaying && state.duration - current < 200) {
+            cancelAnimationFrame(frame);
+
             usePlayerStore.getState().setPlayer({
                progress: 0,
                isPlaying: false,
@@ -32,7 +34,10 @@ const PlaybackBar = () => {
             return;
          }
 
-         setPlaybackTime(current);
+         setPlaybackTime((prev) => {
+            if (prev === current) return prev;
+            return current;
+         });
          frame = requestAnimationFrame(update);
       };
 

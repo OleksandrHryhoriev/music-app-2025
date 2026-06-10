@@ -62,7 +62,7 @@ const TrackListItem = ({
          onMouseLeave={handleMouseLeave}
       >
          <div
-            className="track-index text-center"
+            className="track-index text-center p-0.5 hover:cursor-pointer"
             onClick={() => handlePlayTrack(item)}
          >
             {isActive || isHovered ? (
