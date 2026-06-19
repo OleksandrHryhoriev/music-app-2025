@@ -12,8 +12,16 @@ const PlaybackBar = () => {
 
    const duration = usePlayerStore((s) => s.duration);
    const isPlaying = usePlayerStore((s) => s.isPlaying);
+   const playerLoaded = usePlayerStore((s) => s.playerLoaded);
 
    const { seek } = usePlayerActions();
+
+   useEffect(() => {
+      if (playerLoaded) {
+         const progress = usePlayerStore.getState().progress;
+         setPlaybackTime(progress);
+      }
+   }, [playerLoaded]);
 
    useEffect(() => {
       if (!isPlaying) return;

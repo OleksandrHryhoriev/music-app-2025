@@ -46,6 +46,7 @@ const TrackList = ({ items, context }: TrackListProps) => {
                onClick={() => setActiveId(item.id)}
             >
                <TrackListItem
+                  context={context}
                   item={item}
                   added_at={added_at}
                   index={index}

@@ -1,6 +1,5 @@
 "use client";
 
-import { PlaybackTrack } from "@/src/types/types";
 import { getNextRepeat } from "../player/repeatMode";
 import { usePlayerStore } from "../stores/playerStore";
 import { getCurrentProgress } from "../selectors/selectors";
@@ -10,7 +9,6 @@ export function usePlayerActions() {
    const {
       engine,
       setPlayer,
-      contextUri,
       isPlaying,
       repeatMode,
       shuffleState,
@@ -18,17 +16,12 @@ export function usePlayerActions() {
       prevTrack,
    } = state;
 
-   const play = (track: PlaybackTrack, index: number) => {
-      if (contextUri) {
-         engine?.play(contextUri, index);
-      } else {
-         engine?.play(track.uri, null);
-      }
+   const play = (context: string, index: number) => {
+      engine?.play(context, index);
+
       setPlayer({
-         currentIndex: index,
-         track,
+         contextCurrentUri: context,
          isPlaying: true,
-         duration: track.duration,
          progress: 0,
          sdkTimeStamp: performance.now(),
       });

@@ -1,7 +1,7 @@
 "use client";
 
 import { usePlayerStore } from "@/src/music/stores/playerStore";
-import { PlaybackTrack, TrackType } from "@/src/types/types";
+import { TrackType } from "@/src/types/types";
 import formateDate from "@/src/utils/functions/formateDate";
 import formatTime from "@/src/utils/functions/formatTime";
 import Image from "next/image";
@@ -12,6 +12,7 @@ import PlayIcon from "../../icons/PlayIcon";
 import { usePlayerActions } from "@/src/music/actions/usePlayerActions";
 
 type TrackListItemProps = {
+   context: string;
    item: TrackType;
    added_at: string;
    index: number;
@@ -19,6 +20,7 @@ type TrackListItemProps = {
 };
 
 const TrackListItem = ({
+   context,
    item,
    added_at,
    index,
@@ -27,7 +29,7 @@ const TrackListItem = ({
    const [isCurrent, setIsCurrent] = useState<boolean>(false);
    const [isHovered, setIsHovered] = useState<boolean>(false);
 
-   const { track, isPlaying } = usePlayerStore((s) => s);
+   const { track, isPlaying, setPlayer } = usePlayerStore((s) => s);
 
    const { play, togglePlay } = usePlayerActions();
 
@@ -39,14 +41,15 @@ const TrackListItem = ({
       }
    }, [track, item]);
 
-   const handlePlayTrack = (track: PlaybackTrack): void => {
+   const handlePlayTrack = (): void => {
       if (isCurrent) {
          togglePlay();
          return;
       }
 
+      setPlayer({ track: item });
       setIsCurrent(true);
-      play(track, index);
+      play(context, index);
    };
 
    const handleMouseEnter = (): void => {
@@ -63,7 +66,7 @@ const TrackListItem = ({
       >
          <div
             className="track-index text-center p-0.5 hover:cursor-pointer"
-            onClick={() => handlePlayTrack(item)}
+            onClick={() => handlePlayTrack()}
          >
             {isActive || isHovered ? (
                isCurrent && isPlaying ? (

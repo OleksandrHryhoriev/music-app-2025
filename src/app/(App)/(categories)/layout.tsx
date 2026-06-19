@@ -1,4 +1,3 @@
-import MainWrapper from "@/src/components/main/MainWrapper";
 import { Suspense } from "react";
 
 export default function MainPageLayout({
@@ -6,11 +5,5 @@ export default function MainPageLayout({
 }: Readonly<{
    children: React.ReactNode;
 }>) {
-   return (
-      <div className="w-full h-full">
-         <Suspense fallback={<h2>Loading...</h2>}>
-            <MainWrapper>{children}</MainWrapper>
-         </Suspense>
-      </div>
-   );
+   return <Suspense fallback={<h2>Loading...</h2>}>{children}</Suspense>;
 }

@@ -3,6 +3,7 @@ export type LibOptions = (typeof libOptions)[number];
 
 export type LibItemType = {
    id: string;
+   uri: string;
    name: string;
    type: LibOptions;
    image: string | null;

@@ -13,6 +13,7 @@ export type SetPlayerType = (
 export type PlayerState = {
    engine: PlaybackEngine | null;
    contextUri: string | null;
+   contextCurrentUri: string | null;
    contextTracks: string[];
    currentIndex: number;
    track: PlaybackTrack | null;
@@ -27,6 +28,7 @@ export type PlayerState = {
    lastUpdated: number;
    deviceId: string | null;
    volume: number;
+   playerLoaded: boolean;
 
    setEngine: (engine: PlaybackEngine) => void;
    setPlayer: SetPlayerType;
@@ -36,6 +38,7 @@ export type PlayerState = {
 export const usePlayerStore = create<PlayerState>((set) => ({
    engine: null,
    contextUri: null,
+   contextCurrentUri: null,
    contextTracks: [],
    currentIndex: 0,
    track: null,
@@ -50,6 +53,7 @@ export const usePlayerStore = create<PlayerState>((set) => ({
    lastUpdated: 0,
    deviceId: null,
    volume: 0,
+   playerLoaded: false,
 
    setEngine: (engine) => set({ engine }),
    setPlayer: (updater) =>

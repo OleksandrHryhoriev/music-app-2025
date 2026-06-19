@@ -75,6 +75,7 @@ export function setSpotifyLocalPlayer(
                progress: state.position,
                shuffleState: state.shuffle,
                repeatMode: fromSpotifySDKRepeat(state.repeat_mode),
+               playerLoaded: true,
                sdkTimeStamp: performance.now(),
             };
          });

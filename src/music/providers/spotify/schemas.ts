@@ -6,6 +6,7 @@ import { LibItemType } from "@/src/types/types";
 export const SpotifyLibPlaylistSchema = z
    .object({
       id: z.string(),
+      uri: z.string(),
       name: z.string(),
       images: z
          .array(
@@ -23,6 +24,7 @@ export const SpotifyLibPlaylistSchema = z
    .transform(
       (data): LibItemType => ({
          id: data.id,
+         uri: data.uri,
          name: data.name,
          image: data.images?.[0]?.url ?? null,
          type: "playlist",
@@ -38,6 +40,7 @@ export const SpotifyPlaylistListSchema = z.object({
 export const SpotifyLibArtistSchema = z
    .object({
       id: z.string(),
+      uri: z.string(),
       name: z.string(),
       images: z
          .array(
@@ -50,6 +53,7 @@ export const SpotifyLibArtistSchema = z
    .transform(
       (data): LibItemType => ({
          id: data.id,
+         uri: data.uri,
          name: data.name,
          image: data.images?.[0]?.url ?? null,
          type: "artist",
@@ -71,6 +75,7 @@ export const SpotifyLibAlbumSchema = z
    .object({
       album: z.object({
          id: z.string(),
+         uri: z.string(),
          name: z.string(),
          images: z
             .array(
@@ -89,6 +94,7 @@ export const SpotifyLibAlbumSchema = z
    .transform(
       (data): LibItemType => ({
          id: data.album.id,
+         uri: data.album.uri,
          name: data.album.name,
          type: "album",
          image: data.album.images?.[0]?.url || null,
