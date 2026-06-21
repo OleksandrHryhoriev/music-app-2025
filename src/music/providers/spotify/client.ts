@@ -6,6 +6,7 @@ import {
    SpotifyCurrentTrackSchema,
    SpotifyPlaylistListSchema,
    SpotifyPlaylistSchema,
+   SpotifyUserSchema,
 } from "./schemas";
 import getSpotifyPath, { SPOTIFY_PATH } from "./endpoints";
 import {
@@ -13,12 +14,32 @@ import {
    CurrentTrackType,
    LibItemType,
    PlaylistType,
+   UserProfile,
 } from "@/src/types/types";
 import requestMusicApi from "../../api/requestMusicApi";
 import fetchMusicApi from "../../api/fetchMusicApi";
 import { handleApiErrors } from "../../errors";
 
 export const sporifyClient: MusicProviderClient = {
+   // User
+   async getUserProfile(id) {
+      const path = getSpotifyPath(SPOTIFY_PATH.user.user + id);
+      const [error, data] = await requestMusicApi(path, SpotifyUserSchema);
+
+      if (!error) {
+         return data as UserProfile;
+      }
+      return handleApiErrors(error);
+   },
+   async getMyProfile() {
+      const path = getSpotifyPath(SPOTIFY_PATH.user.me);
+      const [error, data] = await requestMusicApi(path, SpotifyUserSchema);
+
+      if (!error) {
+         return data as UserProfile;
+      }
+      return handleApiErrors(error);
+   },
    // Library
    async getPlaylistList() {
       const path = getSpotifyPath(SPOTIFY_PATH.library.playlistList);
@@ -71,9 +92,14 @@ export const sporifyClient: MusicProviderClient = {
    // Player actions
    async getCurrentTrack() {
       const path = getSpotifyPath(SPOTIFY_PATH.player.current);
-      const data = await fetchMusicApi(path);
-      const parsed = SpotifyCurrentTrackSchema.parse(data);
+      const [error, data] = await requestMusicApi(
+         path,
+         SpotifyCurrentTrackSchema,
+      );
 
-      return parsed as CurrentTrackType;
+      if (!error) {
+         return data as CurrentTrackType;
+      }
+      return handleApiErrors(error);
    },
 };

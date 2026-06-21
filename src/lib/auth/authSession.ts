@@ -98,17 +98,29 @@ export async function getSession(): Promise<SessionData | null> {
 }
 
 export async function getAccessToken(): Promise<string | null> {
-   const user = await getUser();
-   if (!user?.id) return null;
-
-   const session = await ensureFreshSession(user.id);
+   const session = await getSession();
    return session?.accessToken ?? null;
 }
 
 export async function getProviderFromSession(): Promise<string | null> {
-   const user = await getUser();
-   if (!user?.id) return null;
-
-   const session = await ensureFreshSession(user.id);
+   const session = await getSession();
    return session?.provider ?? null;
+}
+
+export async function getUserIdByProvider(): Promise<string | null> {
+   const session = await getSession();
+   if (!session?.userId) return null;
+
+   const account = await prisma.account.findFirst({
+      where: {
+         userId: session.userId,
+         provider: session.provider,
+      },
+   });
+
+   if (!account) {
+      return null;
+   }
+
+   return account.providerAccountId;
 }

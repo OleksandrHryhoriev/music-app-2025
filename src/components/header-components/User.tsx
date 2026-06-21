@@ -1,25 +1,63 @@
-import { type User } from "next-auth";
+"use client";
+
+import useClickOutside from "@/src/hooks/useClickOutside";
+import { useHover } from "@/src/hooks/useHover";
 import Image from "next/image";
+import { useRef, useState } from "react";
+import UserMenu from "./UserMenu";
+import { UserProfile } from "@/src/types/types";
 
 type UserProps = {
-   user: User;
+   user: UserProfile;
 };
 
 const User = ({ user }: UserProps) => {
+   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+   const [buttonRef, isHovered, setIsHovered] = useHover<HTMLDivElement>();
+   const menuRef = useRef<HTMLDivElement>(null);
+
+   useClickOutside([buttonRef, menuRef], () => setIsMenuOpen(false));
+
+   // const showTooltip: boolean = isHovered && !isMenuOpen;
+
+   const handleClick = () => {
+      setIsHovered(false);
+      setIsMenuOpen((prev) => !prev);
+   };
+
    return (
-      <div className="flex items-center gap-3">
-         {user.image && (
-            <div className="flex items-center justify-center w-10 h-10 relative rounded-full overflow-hidden">
-               <Image
-                  src={user.image}
-                  alt="User avatar"
-                  className="w-full object-cover"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-               />
+      <div className="relative">
+         <div
+            ref={buttonRef}
+            onClick={handleClick}
+            className="w-11 h-11 relative rounded-full overflow-hidden p-1.5 bg-(--backgroundSecondary) transition-all  hover:bg-(--bgHover) hover:scale-103"
+         >
+            {user?.image && (
+               <div className="w-8 h-8 relative rounded-full overflow-hidden">
+                  <Image
+                     src={user.image}
+                     alt="User avatar"
+                     className="w-full object-cover"
+                     fill
+                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+               </div>
+            )}
+         </div>
+
+         {isHovered && (
+            <div className="absolute z-5 top-full -right-1 translate-y-2.5 px-2 py-1 bg-(--bgActive) rounded-sm shadow-[0px_5px_15px_5px_var(--backgroundSecondary)] text-sm text-nowrap">
+               {user?.name || "Authorized User"}
             </div>
          )}
-         <div>{user.name || "Authorized User"}</div>
+         {isMenuOpen && (
+            <div
+               ref={menuRef}
+               className="absolute top-full -right-1 translate-y-2.5 p-1 bg-(--bgHover) rounded-md w-70 shadow-[0px_5px_15px_5px_var(--backgroundSecondary)]"
+            >
+               <UserMenu user={user} closeMenu={handleClick} />
+            </div>
+         )}
       </div>
    );
 };

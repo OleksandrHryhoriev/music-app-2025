@@ -1,6 +1,18 @@
 export const libOptions = ["playlist", "artist", "album"] as const;
 export type LibOptions = (typeof libOptions)[number];
 
+export type UserProfile = {
+   accountId?: string;
+   country?: string;
+   name: string;
+   email?: string;
+   followers: number;
+   id: string;
+   image: string;
+   product: string;
+   uri: string;
+};
+
 export type LibItemType = {
    id: string;
    uri: string;

@@ -9,8 +9,8 @@ export default function App({
 }>) {
    return (
       <div className="app h-screen">
-         <div className="max-w-['1920px'] h-full overflow-hidden my-0 mx-auto px-2.5 grid grid-rows-[auto_1fr_88px] grid-cols-[auto_1fr_auto] gap-x-2">
-            <div className="col-span-3">
+         <div className="relative max-w-['1920px'] h-full overflow-hidden my-0 mx-auto px-2.5 grid grid-rows-[auto_1fr_88px] grid-cols-[auto_1fr_auto] gap-x-2">
+            <div className="col-span-3 relative z-100">
                <Header />
             </div>
             <div className="library bg-[#1c1c1c] rounded-[8px] overflow-hidden">

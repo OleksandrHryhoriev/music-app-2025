@@ -1,22 +1,15 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
 
 export default function SignOut() {
    return (
-      <form
-         action={async () => {
-            await signOut();
-            redirect("/");
-         }}
+      <button
+         type="button"
+         onClick={() => signOut({ callbackUrl: "/" })}
+         className="block w-full p-3 text-left cursor-pointer"
       >
-         <button
-            type="submit"
-            className="auth bg-amber-400 h-8 px-4 rounded-2xl flex items-center cursor-pointer"
-         >
-            Sign Out
-         </button>
-      </form>
+         Sign Out
+      </button>
    );
 }

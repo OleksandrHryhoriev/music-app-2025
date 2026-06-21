@@ -19,7 +19,10 @@ export const SPOTIFY_TOKEN_ENDPOINT: string =
 export const SPOTIFY_BASE_URL = "https://api.spotify.com/v1";
 
 export const SPOTIFY_PATH = {
-   user: "/me",
+   user: {
+      me: "/me",
+      user: "/users/", // + id
+   },
    library: {
       playlistList: "/me/playlists",
       artistList: "/me/following?type=artist",

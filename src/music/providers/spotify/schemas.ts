@@ -1,5 +1,38 @@
 import z from "zod";
-import { LibItemType } from "@/src/types/types";
+import { LibItemType, UserProfile } from "@/src/types/types";
+
+// User schemas =============================
+export const SpotifyUserSchema = z
+   .object({
+      account_id: z.string().optional(),
+      country: z.string().optional(),
+      display_name: z.string(),
+      email: z.string().optional(),
+      followers: z.object({
+         total: z.number(),
+      }),
+      id: z.string(),
+      images: z.array(
+         z.object({
+            url: z.string(),
+         }),
+      ),
+      product: z.string(),
+      uri: z.string(),
+   })
+   .transform(
+      (data): UserProfile => ({
+         accountId: data.account_id,
+         country: data.country,
+         name: data.display_name,
+         email: data.email,
+         followers: data.followers.total,
+         id: data.id,
+         image: data.images[0].url,
+         product: data.product,
+         uri: data.uri,
+      }),
+   );
 
 // Library schemas ==========================
 // playlists
