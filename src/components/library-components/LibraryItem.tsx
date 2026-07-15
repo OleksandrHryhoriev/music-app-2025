@@ -72,7 +72,7 @@ const LibraryItem = ({ playlistData, isActive }: LibraryItemProps) => {
          {isWrapperCollapsed ? null : (
             <div className="flex-auto ml-2 overflow-hidden">
                <p
-                  className={`mb-1 truncate ${isPlayed && "text-(--textActiveColor)"}`}
+                  className={`truncate-lh ${isPlayed && "text-(--textActiveColor)"}`}
                >
                   {playlistData.name}
                </p>

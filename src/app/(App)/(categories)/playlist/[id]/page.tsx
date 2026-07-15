@@ -1,5 +1,5 @@
 // import { playlist } from "@/src/mocks/playlist-mock";
-import Playlist from "@/src/components/main/Playlist";
+import Playlist from "@/src/components/main/playlist/Playlist";
 import NotFoundPage from "@/src/components/NotFoundPage/NotFoundPage";
 import { getPlaylist } from "@/src/music/services/pageServices/playlist";
 

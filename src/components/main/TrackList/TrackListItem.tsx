@@ -99,7 +99,7 @@ const TrackListItem = ({
                >
                   {item.name}
                </Link>
-               <div className="track-artists truncate">
+               <div className="track-artists truncate-lh">
                   {item.artists.map((artist, index) => (
                      <span key={artist.id}>
                         {index > 0 && (
@@ -119,7 +119,7 @@ const TrackListItem = ({
          <div className="track-album hidden lg:block">
             <Link
                href={`/album/${item.album.id}`}
-               className="cursor-pointer text-sm block truncate secondary-hovered-text"
+               className="cursor-pointer text-sm block truncate-lh secondary-hovered-text"
             >
                {item.album.name}
             </Link>

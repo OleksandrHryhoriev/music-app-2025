@@ -3,7 +3,7 @@
    "version": "0.1.0",
    "private": true,
    "scripts": {
-      "dev": "next dev -H 192.168.0.106 --experimental-https --turbopack ",
+      "dev": "next dev -H 172.16.0.2 --experimental-https --turbopack ",
       "build": "next build",
       "start": "next start",
       "lint": "next lint"
@@ -13,6 +13,7 @@
       "@prisma/client": "^6.14.0",
       "@upstash/redis": "^1.35.3",
       "axios": "^1.10.0",
+      "colorthief": "^3.4.0",
       "next": "15.3.3",
       "next-auth": "^5.0.0-beta.28",
       "overlayscrollbars-react": "^0.5.6",
@@ -25,6 +26,7 @@
    "devDependencies": {
       "@eslint/eslintrc": "^3",
       "@tailwindcss/postcss": "^4",
+      "@types/colorthief": "^2.6.1",
       "@types/node": "^20",
       "@types/react": "^19",
       "@types/react-dom": "^19",

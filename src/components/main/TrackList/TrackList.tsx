@@ -41,7 +41,7 @@ const TrackList = ({ items, context }: TrackListProps) => {
          </li>
          {items.map(({ item, added_at }, index) => (
             <li
-               key={item.id}
+               key={item.id + index}
                className="tracklist_item w-full"
                onClick={() => setActiveId(item.id)}
             >
