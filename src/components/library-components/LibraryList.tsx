@@ -32,7 +32,7 @@ const LibraryList = ({ libraryItems }: LibraryListProps) => {
                         }}
                      >
                         <LibraryItem
-                           playlistData={item}
+                           libItemData={item}
                            isActive={item.id === activeId}
                         />
                      </li>

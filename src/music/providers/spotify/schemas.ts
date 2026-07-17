@@ -222,7 +222,11 @@ export const SpotifyPlaylistSchema = z
       },
       public: data.public,
       total: data.items.total,
-      items: [...data.items.items],
+      items: data.items.items.map((entry) => ({
+         keyId: crypto.randomUUID(),
+         added_at: entry.added_at,
+         item: entry.item,
+      })),
    }));
 // artist
 export const SpotifyArtistSchema = z

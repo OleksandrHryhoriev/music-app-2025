@@ -6,6 +6,7 @@ import { useRef } from "react";
 import getColorsFromImage from "@/src/utils/bgcolor/getColorsFromImage";
 import updatePalette from "@/src/utils/bgcolor/updatePalette";
 import "./PlaylistHeader.css";
+import Link from "next/link";
 
 type PlaylistHeaderProps = {
    playlist: PlaylistType;
@@ -83,11 +84,14 @@ const PlaylistHeader = ({ playlist, setBgColor }: PlaylistHeaderProps) => {
                         />
                      </div>
                      <div className="flex flex-wrap items-center">
-                        <span className="flex  gap-1 items-center mr-2">
-                           <span className="font-[600] text-sm">
+                        <Link
+                           href={`/user/${playlist.owner.id}`}
+                           className="flex gap-1 items-center mr-2 "
+                        >
+                           <span className="font-[600] text-sm textUnderline">
                               {playlist.owner.name}
                            </span>
-                        </span>
+                        </Link>
                         <span className="align-bottom flex gap-1 items-center text-(--textSecondaryColor) text-sm leading-none before:w-1 before:h-1 before:bg-(--textSecondaryColor) before:rounded-full whitespace-nowrap">
                            {`${playlist.items.length} songs, ${playlistDuration}`}
                         </span>

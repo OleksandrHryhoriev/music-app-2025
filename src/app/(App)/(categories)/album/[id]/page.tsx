@@ -1,7 +1,4 @@
-// import { playlist } from "@/src/mocks/playlist-mock";
-import Playlist from "@/src/components/main/playlist/Playlist";
-// import NotFoundPage from "@/src/components/NotFoundPage/NotFoundPage";
-import { getPlaylist } from "@/src/music/services/pageServices/playlist";
+import { Suspense } from "react";
 
 export default async function Page({
    params,
@@ -9,9 +6,10 @@ export default async function Page({
    params: Promise<{ id: string }>;
 }) {
    const { id } = await params;
-   const playlist = await getPlaylist(id);
 
-   // if (playlist.error) return <NotFoundPage category="playlist" />;
-
-   return <Playlist playlist={playlist} />;
+   return (
+      <Suspense key={id} fallback={<h2>Loading...</h2>}>
+         <div className="h-full w-full">Album: {id}</div>
+      </Suspense>
+   );
 }

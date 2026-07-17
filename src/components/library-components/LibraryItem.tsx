@@ -11,23 +11,23 @@ import PlayButton from "../main/PlayButton";
 import { usePlayerStore } from "@/src/music/stores/playerStore";
 
 type LibraryItemProps = {
-   playlistData: LibItemType;
+   libItemData: LibItemType;
    isActive: boolean;
 };
 
-const LibraryItem = ({ playlistData, isActive }: LibraryItemProps) => {
+const LibraryItem = ({ libItemData, isActive }: LibraryItemProps) => {
    const isWrapperCollapsed = useContext(WrapperCollapsedContext);
    const [isHovered, setIsHovered] = useState<boolean>(false);
    const [isPlayed, setIsPlayed] = useState<boolean>(false);
    const contextCurrentUri = usePlayerStore((s) => s.contextCurrentUri);
 
    useEffect(() => {
-      if (playlistData.uri === contextCurrentUri) {
+      if (libItemData.uri === contextCurrentUri) {
          setIsPlayed(true);
       } else {
          setIsPlayed(false);
       }
-   }, [contextCurrentUri, playlistData.uri]);
+   }, [contextCurrentUri, libItemData.uri]);
 
    const handleMouseEnter = (): void => {
       setIsHovered(true);
@@ -38,7 +38,7 @@ const LibraryItem = ({ playlistData, isActive }: LibraryItemProps) => {
 
    return (
       <Link
-         href={`/${playlistData.type}/${playlistData.id}`}
+         href={`/${libItemData.type}/${libItemData.id}`}
          className={`flex items-center ${
             isWrapperCollapsed ? "w-16" : "w-full"
          } cursor-pointer rounded-sm p-2 duration-200  ${
@@ -51,20 +51,20 @@ const LibraryItem = ({ playlistData, isActive }: LibraryItemProps) => {
       >
          <div
             className={`relative flex-none w-12 h-12 overflow-hidden ${
-               playlistData.type === "artist" ? "rounded-full" : "rounded-sm"
+               libItemData.type === "artist" ? "rounded-full" : "rounded-sm"
             }`}
          >
             {!isWrapperCollapsed && isHovered && (
                <div className="absolute w-full h-full z-2">
                   <PlayButton
-                     context={playlistData.uri}
+                     context={libItemData.uri}
                      bgColor="rgb(60 60 60 / 70%)"
                      color="#ffffff"
                   />
                </div>
             )}
-            {playlistData.image ? (
-               <Image src={playlistData.image} alt="image" fill sizes="20vw" />
+            {libItemData.image ? (
+               <Image src={libItemData.image} alt="image" fill sizes="20vw" />
             ) : (
                <LogoIcon color="var(--textSecondaryColor)" />
             )}
@@ -74,15 +74,15 @@ const LibraryItem = ({ playlistData, isActive }: LibraryItemProps) => {
                <p
                   className={`truncate-lh ${isPlayed && "text-(--textActiveColor)"}`}
                >
-                  {playlistData.name}
+                  {libItemData.name}
                </p>
                <div className="flex gap-1">
                   <span className="text-sm text-(--textSecondaryColor)">
-                     {capitalize(playlistData.type)}
+                     {capitalize(libItemData.type)}
                   </span>
-                  {(playlistData.owner || playlistData.artist) && (
+                  {(libItemData.owner || libItemData.artist) && (
                      <span className="text-sm text-(--textSecondaryColor) flex items-center gap-1 before:w-1 before:h-1 before:bg-(--textSecondaryColor) before:rounded-full">
-                        {playlistData.owner || playlistData.artist}
+                        {libItemData.owner || libItemData.artist}
                      </span>
                   )}
                </div>

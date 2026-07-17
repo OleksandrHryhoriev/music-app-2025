@@ -93,13 +93,19 @@ const TrackListItem = ({
                />
             </div>
             <div className="flex flex-col overflow-hidden">
-               <Link
-                  href={`/track/${item.id}`}
-                  className={`track-name cursor-pointer text-lg ${isCurrent && "text-(--textActiveColor)"} leading-none truncate mb-1 hover:underline`}
-               >
-                  {item.name}
-               </Link>
-               <div className="track-artists truncate-lh">
+               <div className="track-name mb-1 flex">
+                  <Link
+                     href={`/track/${item.id}`}
+                     className={`self-start max-w-full text-lg  ${isCurrent && "text-(--textActiveColor)"}`}
+                  >
+                     <div
+                        className={`${isCurrent && "text-(--textActiveColor) textActiveUnderline"} textUnderline leading-[1.1] truncate`}
+                     >
+                        {item.name}
+                     </div>
+                  </Link>
+               </div>
+               <div className="track-artists secondary-text truncate-lh">
                   {item.artists.map((artist, index) => (
                      <span key={artist.id}>
                         {index > 0 && (
@@ -107,7 +113,7 @@ const TrackListItem = ({
                         )}
                         <Link
                            href={`/artist/${artist.id}`}
-                           className="text-xs secondary-hovered-text"
+                           className="text-xs secondary-hovered-text textUnderline leading-[1.1]"
                         >
                            {artist.name}
                         </Link>
@@ -116,12 +122,14 @@ const TrackListItem = ({
                </div>
             </div>
          </div>
-         <div className="track-album hidden lg:block">
+         <div className="track-album hidden lg:flex">
             <Link
                href={`/album/${item.album.id}`}
-               className="cursor-pointer text-sm block truncate-lh secondary-hovered-text"
+               className="self-start max-w-full text-sm secondary-text truncate-lh"
             >
-               {item.album.name}
+               <span className="secondary-hovered-text textUnderline">
+                  {item.album.name}
+               </span>
             </Link>
          </div>
          <div className="track-added text-sm secondary-text">

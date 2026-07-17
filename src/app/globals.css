@@ -59,6 +59,29 @@
       line-height: 1.2;
    }
 
+   /* Text hover underline effect */
+   .textUnderline {
+      position: relative;
+   }
+   .textUnderline::after {
+      content: "";
+      position: absolute;
+      width: 20%;
+      height: 1px;
+      background-color: transparent;
+      left: 50%;
+      bottom: 0px;
+      transform: translateX(-50%);
+      transition: all 0.15s linear;
+   }
+   .textUnderline:hover.textUnderline::after {
+      width: 100%;
+      background-color: var(--textMainColor);
+   }
+   .textActiveUnderline:hover.textUnderline::after {
+      background-color: var(--textActiveColor);
+   }
+
    /* Secondary text style */
    .secondary-text,
    .secondary-hovered-text {
@@ -67,7 +90,6 @@
    }
    .secondary-hovered-text:hover {
       color: var(--textMainColor);
-      text-decoration: underline;
    }
 
    .player-button {

@@ -40,7 +40,7 @@ const PlayButton = ({
    };
    return (
       <button
-         className="player-playpause player-button w-full h-full flex items-center justify-center hover:scale-105"
+         className="w-full h-full flex items-center justify-center hover:scale-105 transition-transform cursor-pointer"
          style={{ backgroundColor: bgColor }}
          onClick={handleClick}
       >

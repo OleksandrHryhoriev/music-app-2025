@@ -61,6 +61,7 @@ export type PlaylistType = {
    public: boolean;
    total: number;
    items: {
+      keyId: string;
       added_at: string;
       item: TrackType;
    }[];
