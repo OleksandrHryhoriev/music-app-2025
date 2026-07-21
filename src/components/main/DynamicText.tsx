@@ -19,8 +19,8 @@ const defaultBreakpoints: ContainerBreakpoints = {
 
 export default function DynamicText({
    text,
-   minSize = 16,
-   maxSize = 36,
+   minSize = 32,
+   maxSize = 96,
    maxLinesWhenMinSize = 2,
    breakpoints = defaultBreakpoints,
 }: DynamicTextProps) {

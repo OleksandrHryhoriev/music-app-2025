@@ -7,7 +7,7 @@ export default async function fetchMusicApi<T>(
 ): Promise<T> {
    const token = await getAccessToken();
 
-   console.log("From fetchMusicApi. Token: ", token ? true : false);
+   // console.log("From fetchMusicApi. Token: ", token ? true : false);
 
    if (!token) {
       console.log("NO SESSION TO FETCH API");
@@ -21,7 +21,6 @@ export default async function fetchMusicApi<T>(
          ...options?.headers,
       },
    });
-   console.log(res.status);
    if (res.status === 401) {
       throw new UnauthorizedError();
    }

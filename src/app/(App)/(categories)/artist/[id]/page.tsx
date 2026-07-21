@@ -1,6 +1,7 @@
-import { getArtist } from "@/src/music/services/pageServices/artist";
+import { getArtist } from "@/src/music/services/pageServices/artist/artist";
 import NotFoundPage from "@/src/components/NotFoundPage/NotFoundPage";
-import Artist from "@/src/components/main/Artist";
+import Artist from "@/src/components/main/pages/artist/ArtistPage";
+import { getArtistTopTracks } from "@/src/music/services/pageServices/artist/artistTopTracks";
 
 export default async function Page({
    params,
@@ -12,5 +13,7 @@ export default async function Page({
 
    if (artist === null) return <NotFoundPage category="artist" />;
 
-   return <Artist artist={artist} />;
+   const topTracks = await getArtistTopTracks(id);
+
+   return <Artist artist={artist} topTracks={topTracks} />;
 }

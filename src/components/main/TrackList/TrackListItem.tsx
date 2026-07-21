@@ -14,7 +14,7 @@ import { usePlayerActions } from "@/src/music/actions/usePlayerActions";
 type TrackListItemProps = {
    context: string;
    item: TrackType;
-   added_at: string;
+   added_at?: string;
    index: number;
    isActive: boolean;
 };
@@ -132,9 +132,11 @@ const TrackListItem = ({
                </span>
             </Link>
          </div>
-         <div className="track-added text-sm secondary-text">
-            {formateDate(added_at)}
-         </div>
+         {added_at && (
+            <div className="track-added text-sm secondary-text">
+               {formateDate(added_at)}
+            </div>
+         )}
          <div className="track-duration justify-self-end secondary-text">
             {formatTime(item.duration)}
          </div>

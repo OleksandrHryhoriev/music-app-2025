@@ -1,7 +1,8 @@
 // import { playlist } from "@/src/mocks/playlist-mock";
-import Playlist from "@/src/components/main/playlist/Playlist";
+
+import PlaylistPage from "@/src/components/main/pages/playlist/PlaylistPage";
 import NotFoundPage from "@/src/components/NotFoundPage/NotFoundPage";
-import { getPlaylist } from "@/src/music/services/pageServices/playlist";
+import { getPlaylist } from "@/src/music/services/pageServices/playlist/playlist";
 
 export default async function Page({
    params,
@@ -13,5 +14,5 @@ export default async function Page({
 
    if (playlist === null) return <NotFoundPage category="playlist" />;
 
-   return <Playlist playlist={playlist} />;
+   return <PlaylistPage playlist={playlist} />;
 }

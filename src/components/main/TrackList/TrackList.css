@@ -37,6 +37,11 @@
          [index] 18px [first] minmax(200px, 4fr) [var1] minmax(150px, 2fr)
          [var2] minmax(100px, 2fr) [last] minmax(60px, 1fr);
    }
+   .artist-tracklist_item .tracklist_row {
+      grid-template-columns:
+         [index] 18px [first] minmax(200px, 4fr)
+         [var1] minmax(150px, 2fr) [last] minmax(60px, 1fr);
+   }
    .track-added {
       display: block;
       justify-self: center;

@@ -1,7 +1,7 @@
 import { RepeatMode } from "../player/repeatMode";
 
 export type BaseEngine = {
-   play: (uri: string, index: number | null) => Promise<void>;
+   play: (uri: string | string[], index?: number | null) => Promise<void>;
    resume: () => Promise<void>;
    pause: () => Promise<void>;
    seek: (positionMs: number) => Promise<void>;

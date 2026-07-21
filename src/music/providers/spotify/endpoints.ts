@@ -40,10 +40,14 @@ export const SPOTIFY_PATH = {
       seek: "/me/player/seek?position_ms=", //+ms
       volume: "/me/player/volume?volume_percent=", //+value(0-100)
    },
-   playlist: "/playlists/", // + id
-   artist: "/artists/", // + id
-   album: "/albums/", // + id
-   track: "/tracks/", // + id
+   page: {
+      playlist: "/playlists/", // + id
+      artist: "/artists/", // + id
+      topTracks: "/top-tracks", //SPOTIFY_PATH.artist + id + SPOTIFY_PATH.topTracks
+      album: "/albums/", // + id
+      track: "/tracks/", // + id
+      artists: "/artists?ids=", // + ids separated with comas
+   },
 };
 
 export default function getSpotifyPath(endpoint: string) {

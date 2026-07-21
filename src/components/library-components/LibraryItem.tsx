@@ -64,7 +64,12 @@ const LibraryItem = ({ libItemData, isActive }: LibraryItemProps) => {
                </div>
             )}
             {libItemData.image ? (
-               <Image src={libItemData.image} alt="image" fill sizes="20vw" />
+               <Image
+                  src={libItemData.image.url}
+                  alt="image"
+                  fill
+                  sizes="20vw"
+               />
             ) : (
                <LogoIcon color="var(--textSecondaryColor)" />
             )}

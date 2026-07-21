@@ -1,17 +1,17 @@
 "use client";
 
-import TrackList from "../TrackList/TrackList";
 import { PlaylistType } from "@/src/types/types";
-import MainWrapper from "../MainWrapper";
-import PlayButton from "../PlayButton";
 import { useState } from "react";
-import PlaylistHeader from "./playlistHeader/PlaylistHeader";
+import PlaylistHeader from "./PlaylistHeader";
+import PlayButton from "../../PlayButton";
+import TrackList from "../../TrackList/TrackList";
+import MainWrapper from "../../MainWrapper";
 
-type PlaylistProps = {
+type PlaylistPageProps = {
    playlist: PlaylistType;
 };
 
-const Playlist = ({ playlist }: PlaylistProps) => {
+const PlaylistPage = ({ playlist }: PlaylistPageProps) => {
    const [bgColor, setBgColor] = useState<string>("");
 
    return (
@@ -38,4 +38,4 @@ const Playlist = ({ playlist }: PlaylistProps) => {
    );
 };
 
-export default Playlist;
+export default PlaylistPage;

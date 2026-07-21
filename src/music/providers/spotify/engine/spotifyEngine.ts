@@ -16,11 +16,17 @@ export function createSpotifyEngine(): SpotifyEngine {
       },
       async play(uri, index = null) {
          const apiPath = getSpotifyPath(SPOTIFY_PATH.player.play);
-         let context = {};
-         if (index !== null) {
-            context = { context_uri: uri, offset: { position: index } };
+
+         const offset = index !== null ? { position: index } : undefined;
+         let context: {
+            context_uri?: string;
+            uris?: string[];
+            offset?: { position: number };
+         } = { offset: offset };
+         if (typeof uri === "string") {
+            context = { context_uri: uri, ...context };
          } else {
-            context = { uris: [uri] };
+            context = { uris: [...uri], offset: offset };
          }
          await postPlayerState(apiPath, "play", "PUT", context);
       },

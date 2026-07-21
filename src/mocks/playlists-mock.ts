@@ -55,11 +55,10 @@ export const libraryItems: LibItemType[] = [
       owner: "Peredreyfus",
    },
    {
-      id: "sodfhsod444",
-      uri: "sodfhsod444",
-      name: "playlist 1",
-      type: "playlist",
+      id: "0QaSiI5TLA4N7mcsdxShDO",
+      uri: "spotify:artist:0QaSiI5TLA4N7mcsdxShDO",
+      name: "Sub Focus",
+      type: "artist",
       image: null,
-      owner: "Peredreyfus",
    },
 ];

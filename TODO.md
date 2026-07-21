@@ -11,3 +11,4 @@ INSTRUCTIONs.
 - if local player available, follow src/music/player/useLocalPlayer.ts and add case for new provider.
 
 "dev": "next dev -H 192.168.0.106 --experimental-https --turbopack ",
+"dev": "next dev -H 172.16.0.2 --experimental-https --turbopack ",

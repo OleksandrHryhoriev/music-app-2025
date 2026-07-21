@@ -7,22 +7,25 @@ import { usePlayerStore } from "@/src/music/stores/playerStore";
 import { useEffect, useState } from "react";
 
 type PlayButtonProps = {
-   context: string;
+   context: string | string[];
    bgColor?: string;
    color: string;
+   index?: number;
 };
 
 const PlayButton = ({
    context,
    color,
    bgColor = "#1ed760",
+   index,
 }: PlayButtonProps) => {
    const [isCurrentPlaying, setIsCurrentPlaying] = useState<boolean>(false);
    const { isPlaying, contextCurrentUri } = usePlayerStore((s) => s);
    const { togglePlay, play } = usePlayerActions();
 
    useEffect(() => {
-      if (contextCurrentUri === context) {
+      if (contextCurrentUri === context /*TODO*/) {
+         //TODO
          setIsCurrentPlaying(isPlaying);
       } else {
          setIsCurrentPlaying(false);
@@ -33,10 +36,11 @@ const PlayButton = ({
       event.stopPropagation();
       event.preventDefault();
       if (contextCurrentUri === context) {
+         // TODO
          togglePlay();
          return;
       }
-      play(context, 0);
+      play(context, index);
    };
    return (
       <button

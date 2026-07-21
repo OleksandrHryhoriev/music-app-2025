@@ -12,8 +12,8 @@ export type SetPlayerType = (
 
 export type PlayerState = {
    engine: PlaybackEngine | null;
-   contextUri: string | null;
-   contextCurrentUri: string | null;
+   contextUri: string | string[] | null;
+   contextCurrentUri: string | string[] | null;
    contextTracks: string[];
    currentIndex: number;
    track: PlaybackTrack | null;

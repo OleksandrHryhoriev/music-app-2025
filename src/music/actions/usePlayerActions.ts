@@ -16,7 +16,7 @@ export function usePlayerActions() {
       prevTrack,
    } = state;
 
-   const play = (context: string, index: number) => {
+   const play = (context: string | string[], index?: number) => {
       engine?.play(context, index);
 
       setPlayer({

@@ -18,8 +18,6 @@ const User = ({ user }: UserProps) => {
 
    useClickOutside([buttonRef, menuRef], () => setIsMenuOpen(false));
 
-   // const showTooltip: boolean = isHovered && !isMenuOpen;
-
    const handleClick = () => {
       setIsHovered(false);
       setIsMenuOpen((prev) => !prev);
@@ -35,7 +33,7 @@ const User = ({ user }: UserProps) => {
             {user?.image && (
                <div className="w-8 h-8 relative rounded-full overflow-hidden">
                   <Image
-                     src={user.image}
+                     src={user.image.url}
                      alt="User avatar"
                      className="w-full object-cover"
                      fill

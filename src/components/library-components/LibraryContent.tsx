@@ -1,9 +1,9 @@
-import { libraryItems } from "@/src/mocks/playlists-mock";
+// import { libraryItems } from "@/src/mocks/playlists-mock";
 import LibraryList from "./LibraryList";
-// import { getLibrary } from "@/src/music/services/libraryServices/library";
+import { getLibrary } from "@/src/music/services/libraryServices/library";
 
 const LibraryContent = async () => {
-   // const libraryItems = await getLibrary();
+   const libraryItems = await getLibrary();
 
    return (
       <>

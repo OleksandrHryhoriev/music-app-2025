@@ -1,4 +1,6 @@
-import { Suspense } from "react";
+import AlbumPage from "@/src/components/main/pages/album/AlbumPage";
+import NotFoundPage from "@/src/components/NotFoundPage/NotFoundPage";
+import { getAlbum } from "@/src/music/services/pageServices/album/album";
 
 export default async function Page({
    params,
@@ -6,10 +8,9 @@ export default async function Page({
    params: Promise<{ id: string }>;
 }) {
    const { id } = await params;
+   const album = await getAlbum(id);
 
-   return (
-      <Suspense key={id} fallback={<h2>Loading...</h2>}>
-         <div className="h-full w-full">Album: {id}</div>
-      </Suspense>
-   );
+   if (album === null) return <NotFoundPage category="album" />;
+
+   return <AlbumPage album={album} />;
 }
