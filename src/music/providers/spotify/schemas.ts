@@ -126,7 +126,9 @@ export const SpotifyAlbumListSchema = z
 
 // track
 export const SpotifyTrackSchema = BaseDataSchema.extend({
-   album: MusicBaseSchema,
+   album: MusicBaseSchema.extend({
+      release_date: z.string(),
+   }),
    artists: z.array(BaseDataSchema),
    duration_ms: z.number(),
 }).transform(
@@ -139,6 +141,7 @@ export const SpotifyTrackSchema = BaseDataSchema.extend({
          uri: data.album.uri,
          name: data.album.name,
          image: data.album.images?.[0],
+         release: data.album.release_date,
       },
       artists: [...data.artists],
       duration: data.duration_ms,
@@ -174,9 +177,9 @@ export const SpotifyPlaylistSchema = MusicBaseSchema.extend({
       public: data.public,
       total: data.items.total,
       items: data.items.items.map((entry) => ({
+         ...entry.item,
          keyId: crypto.randomUUID(),
-         added_at: entry.added_at,
-         item: entry.item,
+         added: entry.added_at,
       })),
    }),
 );
@@ -210,20 +213,33 @@ export const SpotifyArtistTopTraksSchema = z
    .object({
       tracks: z.array(SpotifyTrackSchema),
    })
-   .transform((data): TrackType[] => [...data.tracks]);
+   .transform((data): TrackType[] =>
+      data.tracks.map((entry) => ({
+         ...entry,
+         keyId: crypto.randomUUID(),
+      })),
+   );
 
 // album
+export const SpotifyAlbumTrackSchema = BaseDataSchema.extend({
+   artists: z.array(BaseDataSchema),
+   duration_ms: z.number(),
+}).transform(
+   (data): TrackType => ({
+      id: data.id,
+      uri: data.uri,
+      name: data.name,
+      artists: [...data.artists],
+      duration: data.duration_ms,
+   }),
+);
+
 export const SpotifyAlbumSchema = MusicBaseSchema.extend({
    artists: z.array(BaseDataSchema),
    release_date: z.string(),
    album_type: z.string(),
-   items: z.object({
-      items: z.array(
-         z.object({
-            added_at: z.string(),
-            item: SpotifyTrackSchema,
-         }),
-      ),
+   tracks: z.object({
+      items: z.array(SpotifyAlbumTrackSchema),
    }),
 }).transform(
    (data): AlbumType => ({
@@ -234,9 +250,9 @@ export const SpotifyAlbumSchema = MusicBaseSchema.extend({
       artists: [...data.artists],
       release: data.release_date,
       type: data.album_type,
-      items: data.items.items.map((entry) => ({
+      items: data.tracks.items.map((entry) => ({
+         ...entry,
          keyId: crypto.randomUUID(),
-         item: entry.item,
       })),
    }),
 );

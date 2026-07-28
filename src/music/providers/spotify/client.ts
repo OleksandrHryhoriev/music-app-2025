@@ -1,6 +1,7 @@
 import { MusicProviderClient } from "../types";
 import {
    SpotifyAlbumListSchema,
+   SpotifyAlbumSchema,
    SpotifyArtistListSchema,
    SpotifyArtistSchema,
    SpotifyArtistTopTraksSchema,
@@ -121,7 +122,7 @@ export const sporifyClient: MusicProviderClient = {
    },
    async getAlbum(id) {
       const path = getSpotifyPath(SPOTIFY_PATH.page.album + id);
-      const [error, data] = await requestMusicApi(path, SpotifyArtistSchema);
+      const [error, data] = await requestMusicApi(path, SpotifyAlbumSchema);
 
       if (!error) {
          return data as AlbumType;

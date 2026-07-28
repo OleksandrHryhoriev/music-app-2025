@@ -1,10 +1,12 @@
-import Image from "next/image";
-import DynamicText from "../../DynamicText";
 import { AlbumType } from "@/src/types/types";
-import { formatTimeHours } from "@/src/utils/functions/formatTime";
-import { useRef } from "react";
-import Link from "next/link";
 import handleImageLoad from "@/src/utils/bgcolor/handleImageLoad";
+import capitalize from "@/src/utils/functions/capitalize";
+import { getDate } from "@/src/utils/functions/formateDate";
+import { formatTimeHours } from "@/src/utils/functions/formatTime";
+import Image from "next/image";
+import Link from "next/link";
+import { useRef } from "react";
+import DynamicText from "../../DynamicText";
 
 type AlbumHeaderProps = {
    album: AlbumType;
@@ -16,7 +18,7 @@ const AlbumHeader = ({ album, setBgColor }: AlbumHeaderProps) => {
 
    const albumDuration = formatTimeHours(
       album.items.reduce(
-         (accumulator, current) => accumulator + current.item.duration,
+         (accumulator, current) => accumulator + current.duration,
          0,
       ),
    );
@@ -50,26 +52,28 @@ const AlbumHeader = ({ album, setBgColor }: AlbumHeaderProps) => {
                   </div>
                )}
                <div className="flex-1  min-w-0">
-                  <div className="w-full flex flex-col gap-3">
-                     <span className="text-sm">Album</span>
-                     <div className="w-full font-black">
+                  <div className="w-full">
+                     <span className="text-sm mb-1">
+                        {capitalize(album.type)}
+                     </span>
+                     <div className="w-full font-black mb-2">
                         <DynamicText
                            text={album.name}
                            minSize={32}
                            maxSize={96}
                         />
                      </div>
-                     <div className="flex flex-wrap items-center">
+                     <div className="flex flex-wrap gap-x-1.5 gap-y-1 items-center">
                         <Link
-                           href={`/user/${album.artists[0].id}`}
-                           className="flex gap-1 items-center mr-2 "
+                           href={`/artist/${album.artists[0].id}`}
+                           className="flex items-center"
                         >
                            <span className="font-[600] text-sm textUnderline">
                               {album.artists[0].name}
                            </span>
                         </Link>
                         <span className="align-bottom flex gap-1 items-center text-(--textSecondaryColor) text-sm leading-none before:w-1 before:h-1 before:bg-(--textSecondaryColor) before:rounded-full whitespace-nowrap">
-                           {album.release}
+                           {getDate(album.release).year}
                         </span>
                         <span className="align-bottom flex gap-1 items-center text-(--textSecondaryColor) text-sm leading-none before:w-1 before:h-1 before:bg-(--textSecondaryColor) before:rounded-full whitespace-nowrap">
                            {`${album.items.length} songs, ${albumDuration}`}

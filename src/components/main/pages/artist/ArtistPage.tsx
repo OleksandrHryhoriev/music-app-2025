@@ -4,8 +4,8 @@ import { ArtistType, TrackType } from "@/src/types/types";
 import { useState } from "react";
 import MainWrapper from "../../MainWrapper";
 import PlayButton from "../../PlayButton";
+import TrackList from "../../trackList/TrackList";
 import ArtistHeader from "./ArtistHeader";
-import ArtistTrackList from "./ArtistTrackList";
 
 type ArtistPageProps = {
    artist: ArtistType;
@@ -14,6 +14,9 @@ type ArtistPageProps = {
 
 const ArtistPage = ({ artist, topTracks }: ArtistPageProps) => {
    const [bgColor, setBgColor] = useState<string>("");
+   const artistContext: string[] = topTracks
+      ? topTracks?.map((entry) => entry.uri)
+      : [];
    return (
       <MainWrapper title={artist.name} context={artist.uri} bgColor={bgColor}>
          <div
@@ -31,7 +34,11 @@ const ArtistPage = ({ artist, topTracks }: ArtistPageProps) => {
             <div className="artist-content px-4 relative z-2">
                <h3 className="text-2xl font-bold pl-3 mb-2">Popular</h3>
                {topTracks && (
-                  <ArtistTrackList items={topTracks} context={artist.uri} />
+                  <TrackList
+                     items={topTracks}
+                     context={artistContext}
+                     type="artist"
+                  />
                )}
             </div>
          </div>

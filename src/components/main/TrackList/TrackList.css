@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-.tracklist_header::after {
+.tracklist-header::after {
    content: "";
    position: absolute;
    left: 0;
@@ -11,7 +11,7 @@
    opacity: 0.2;
 }
 
-.tracklist_row {
+.tracklist-row {
    display: grid;
    gap: 16px;
    grid-template-columns: [index] 18px [first] minmax(200px, 4fr) [last] minmax(
@@ -25,24 +25,26 @@
    display: none;
 }
 @media (min-width: 1024px) {
-   .tracklist_row {
+   .tracklist_playlist .tracklist-row,
+   .tracklist_artist .tracklist-row {
       grid-template-columns:
          [index] 18px [first] minmax(200px, 4fr)
          [var1] minmax(150px, 2fr) [last] minmax(60px, 1fr);
    }
 }
 @media (min-width: 1280px) {
-   .tracklist_row {
+   .tracklist_playlist .tracklist-row {
       grid-template-columns:
          [index] 18px [first] minmax(200px, 4fr) [var1] minmax(150px, 2fr)
          [var2] minmax(100px, 2fr) [last] minmax(60px, 1fr);
    }
-   .artist-tracklist_item .tracklist_row {
+   .tracklist_artist .tracklist-row {
       grid-template-columns:
          [index] 18px [first] minmax(200px, 4fr)
          [var1] minmax(150px, 2fr) [last] minmax(60px, 1fr);
    }
-   .track-added {
+
+   .tracklist_playlist .track-added {
       display: block;
       justify-self: center;
    }

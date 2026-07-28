@@ -1,8 +1,20 @@
-export default function formateDate(dateString: string): string {
-   if (!dateString) return "Jan 01, 1900";
+type DateType = {
+   day: number;
+   month: number;
+   year: number;
+};
 
-   const dateAsArray = dateString.slice(0, 10).split("-");
-   const months = [
+export function getDate(dateString: string): DateType {
+   const date = new Date(dateString);
+   return {
+      day: date.getDay(),
+      month: date.getMonth(),
+      year: date.getFullYear(),
+   };
+}
+
+export default function formateDate(dateString: string): string {
+   const MONTHS = [
       "Jan",
       "Feb",
       "Mar",
@@ -17,5 +29,7 @@ export default function formateDate(dateString: string): string {
       "Dec",
    ];
 
-   return `${months[Number(dateAsArray[1]) - 1]} ${dateAsArray[2]}, ${dateAsArray[0]}`;
+   const date = getDate(dateString);
+
+   return `${MONTHS[date.month - 1]} ${date.day}, ${date.year}`;
 }

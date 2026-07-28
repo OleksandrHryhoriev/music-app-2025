@@ -79,23 +79,30 @@ const _ensureFreshSession = async (
    return session;
 };
 
-const ensureFreshSession = cache(
-   async (userId: string): Promise<SessionData | null> => {
-      return await _ensureFreshSession(userId);
-   },
-);
+// const ensureFreshSession = cache(
+//    async (userId: string): Promise<SessionData | null> => {
+//       return await _ensureFreshSession(userId);
+//    },
+// );
 
 export const getUser = cache(async () => {
    const session = await auth();
    return session?.user ?? null;
 });
 
-export async function getSession(): Promise<SessionData | null> {
-   const user = await getUser();
+// export async function getSession(): Promise<SessionData | null> {
+//    const user = await getUser();
+//    if (!user?.id) return null;
+
+//    return await ensureFreshSession(user.id);
+// }
+export const getSession = cache(async (): Promise<SessionData | null> => {
+   const session = await auth();
+   const user = session?.user;
    if (!user?.id) return null;
 
-   return await ensureFreshSession(user.id);
-}
+   return await _ensureFreshSession(user.id);
+});
 
 export async function getAccessToken(): Promise<string | null> {
    const session = await getSession();

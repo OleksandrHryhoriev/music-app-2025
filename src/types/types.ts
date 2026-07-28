@@ -11,7 +11,7 @@ interface Image {
    height: number | null;
    width: number | null;
 }
-interface MusicBaseType extends BaseData {
+export interface MusicBaseType extends BaseData {
    image?: Image;
 }
 
@@ -30,9 +30,11 @@ export interface LibItemType extends MusicBaseType {
 }
 
 export interface TrackType extends MusicBaseType {
-   album: MusicBaseType;
+   album?: MusicBaseType & { release: string };
    artists: BaseData[];
    duration: number;
+   keyId?: string;
+   added?: string;
 }
 
 export interface PlaylistType extends MusicBaseType {
@@ -42,11 +44,7 @@ export interface PlaylistType extends MusicBaseType {
    };
    public: boolean;
    total: number;
-   items: {
-      keyId: string;
-      added_at: string;
-      item: TrackType;
-   }[];
+   items: TrackType[];
 }
 
 export interface ArtistType extends MusicBaseType {
@@ -59,14 +57,11 @@ export interface AlbumType extends MusicBaseType {
    artists: BaseData[];
    release: string;
    type: string;
-   items: {
-      keyId: string;
-      item: TrackType;
-   }[];
+   items: TrackType[];
 }
 
 export interface PlaybackTrack extends MusicBaseType {
-   album: MusicBaseType;
+   album?: MusicBaseType;
    artists: BaseData[];
    duration: number;
 }

@@ -16,7 +16,7 @@ const PlaylistHeader = ({ playlist, setBgColor }: PlaylistHeaderProps) => {
 
    const playlistDuration = formatTimeHours(
       playlist.items.reduce(
-         (accumulator, current) => accumulator + current.item.duration,
+         (accumulator, current) => accumulator + current.duration,
          0,
       ),
    );

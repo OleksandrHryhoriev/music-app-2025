@@ -1,10 +1,11 @@
-import Image from "next/image";
-import DynamicText from "../../DynamicText";
 import { TrackType } from "@/src/types/types";
-import { useRef } from "react";
-import Link from "next/link";
 import handleImageLoad from "@/src/utils/bgcolor/handleImageLoad";
 import formatTime from "@/src/utils/functions/formatTime";
+import { getDate } from "@/src/utils/functions/formateDate";
+import Image from "next/image";
+import Link from "next/link";
+import { useRef } from "react";
+import DynamicText from "../../DynamicText";
 
 type TrackHeaderProps = {
    track: TrackType;
@@ -25,8 +26,8 @@ const TrackHeader = ({ track, setBgColor }: TrackHeaderProps) => {
       >
          <div className="w-full max-w-480 h-full mx-auto relative z-5">
             <div className="h-full w-full flex items-end gap-6">
-               <div className="h-full aspect-square relative rounded-sm overflow-hidden bg-blue-950">
-                  {track.album.image && (
+               <div className="h-full aspect-square relative rounded-sm overflow-hidden bg-(--backgroundMain)">
+                  {track.album?.image && (
                      <Image
                         src={track.album.image.url}
                         fill={true}
@@ -61,16 +62,20 @@ const TrackHeader = ({ track, setBgColor }: TrackHeaderProps) => {
                               {track.artists[0].name}
                            </span>
                         </Link>
-                        <span className="align-bottom flex gap-1 items-center text-(--textSecondaryColor) text-sm leading-none before:w-1 before:h-1 before:bg-(--textSecondaryColor) before:rounded-full whitespace-nowrap">
-                           <Link href={`/artist/${track.album.id}`}>
-                              <span className="textUnderline">
-                                 {track.album.name}
+                        {track.album && (
+                           <>
+                              <span className="align-bottom flex gap-1 items-center text-(--textSecondaryColor) text-sm leading-none before:w-1 before:h-1 before:bg-(--textSecondaryColor) before:rounded-full whitespace-nowrap">
+                                 <Link href={`/album/${track.album.id}`}>
+                                    <span className="textUnderline">
+                                       {track.album.name}
+                                    </span>
+                                 </Link>
                               </span>
-                           </Link>
-                        </span>
-                        <span className="align-bottom flex gap-1 items-center text-(--textSecondaryColor) text-sm leading-none before:w-1 before:h-1 before:bg-(--textSecondaryColor) before:rounded-full whitespace-nowrap">
-                           {track.album.id /*TODO release date*/}
-                        </span>
+                              <span className="align-bottom flex gap-1 items-center text-(--textSecondaryColor) text-sm leading-none before:w-1 before:h-1 before:bg-(--textSecondaryColor) before:rounded-full whitespace-nowrap">
+                                 {getDate(track.album?.release).year}
+                              </span>
+                           </>
+                        )}
                         <span className="align-bottom flex gap-1 items-center text-(--textSecondaryColor) text-sm leading-none before:w-1 before:h-1 before:bg-(--textSecondaryColor) before:rounded-full whitespace-nowrap">
                            {formatTime(track.duration)}
                         </span>

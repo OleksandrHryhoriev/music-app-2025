@@ -4,6 +4,7 @@ import { usePlayerStore } from "@/src/music/stores/playerStore";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import LoadIcon from "../icons/LoadIcon";
 
 const PlayerTrackInfo = () => {
    const track = usePlayerStore((state) => state.track);
@@ -11,15 +12,23 @@ const PlayerTrackInfo = () => {
       track && (
          <div className="flex gap-4 items-center w-full">
             <div
-               className="relative flex-none w-14 h-14 rounded-sm overflow-hidden bg-cyan-950"
+               className="relative flex-none w-14 h-14 rounded-sm overflow-hidden"
                onClick={() => {}} //TODO
             >
-               <Image
-                  src={track.album.image.url}
-                  alt="image"
-                  width={56}
-                  height={56}
-               />
+               {track.album?.image ? (
+                  <Image
+                     src={track.album.image.url}
+                     alt="image"
+                     width={56}
+                     height={56}
+                  />
+               ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                     <div className="w-8 h-8 animate-spin">
+                        <LoadIcon />
+                     </div>
+                  </div>
+               )}
             </div>
             <div className="flex flex-col overflow-hidden">
                <Link
