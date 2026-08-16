@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { prisma } from "@/src/prisma/prisma";
+import { prisma } from "@/prisma/prisma";
 import { cache } from "react";
 import { refreshAccessToken, withRefreshLock } from "./refreshToken";
 import { MusicProvider } from "@/src/music/providers/types";

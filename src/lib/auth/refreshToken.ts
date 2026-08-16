@@ -1,6 +1,6 @@
 import { PROVIDERS } from "@/src/music/providers/providers";
 import { MusicProvider } from "@/src/music/providers/types";
-import { prisma } from "@/src/prisma/prisma";
+import { prisma } from "@/prisma/prisma";
 
 export type Refreshed = {
    access_token: string;

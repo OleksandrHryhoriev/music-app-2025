@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import authConfig from "./auth.config";
-import { prisma } from "./src/prisma/prisma";
+import { prisma } from "./prisma/prisma";
 import {
    refreshAccessToken,
    Refreshed,
