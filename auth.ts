@@ -32,6 +32,18 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             session.user.id = user.id;
          }
 
+         if (!session.provider) {
+            const fallbackAccount = await prisma.account.findFirst({
+               where: { userId: user.id },
+            });
+
+            if (fallbackAccount) {
+               session.provider = fallbackAccount.provider;
+            } else {
+               return session;
+            }
+         }
+
          // Get account for Spotify
          const account = await prisma.account.findFirst({
             where: { userId: user.id, provider: session.provider },

@@ -1,4 +1,4 @@
-# A music app that is an exact clone of Srotify app.
+# A music app that is an exact clone of Spotify app.
 
 By default, it uses the Spotify WebAPI to provide users with:
 
@@ -8,3 +8,5 @@ By default, it uses the Spotify WebAPI to provide users with:
 - _library management to create new playlists and add favorite tracks (development is in progress)_;
 
 ## The application is designed with the modular flexibility to add a new music providers(such as Youtube, AppleMusic, etc.).
+
+## Please contact me to gain full access to the application using your Spotify account.
