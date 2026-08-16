@@ -17,7 +17,7 @@ const VolumeBlock = () => {
 
    useEffect(() => {
       setVolumeValue(loadVolume());
-   }, []);
+   }, [setVolumeValue]);
 
    const handleChange = (value: number) => {
       if (isMuted === true) {
