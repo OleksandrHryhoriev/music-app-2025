@@ -16,23 +16,14 @@ const AlbumPage = ({ album }: AlbumPageProps) => {
 
    return (
       <MainWrapper title={album.name} context={album.uri} bgColor={bgColor}>
-         <div
-            className="album-container w-full min-w-[420px] relative"
-            style={{ containerType: "inline-size" }}
-         >
-            <AlbumHeader album={album} setBgColor={setBgColor} />
-            <div className="album-controls mb-5 relative z-2 flex gap-5">
-               <div className="w-14 h-14 ml-10 rounded-full overflow-hidden">
-                  <PlayButton context={album.uri} color="#000000" />
-               </div>
+         <AlbumHeader album={album} setBgColor={setBgColor} />
+         <div className="album-controls mb-5 relative z-2 flex gap-5">
+            <div className="w-14 h-14 ml-10 rounded-full overflow-hidden">
+               <PlayButton context={album.uri} color="#000000" />
             </div>
-            <div className="album-content px-4 relative z-2">
-               <TrackList
-                  items={album.items}
-                  context={album.uri}
-                  type="album"
-               />
-            </div>
+         </div>
+         <div className="album-content px-4 relative z-2">
+            <TrackList items={album.items} context={album.uri} type="album" />
          </div>
       </MainWrapper>
    );

@@ -79,7 +79,7 @@ const PlayerControls = () => {
                   />
                </span>
             </button>
-            <button
+            {/* <button
                className="player-next player-button"
                onClick={() => {
                   console.log(usePlayerStore.getState());
@@ -88,7 +88,7 @@ const PlayerControls = () => {
                <span>
                   <NextIcon />
                </span>
-            </button>
+            </button> */}
          </div>
          <div className="player-playback w-full">
             <PlaybackBar />

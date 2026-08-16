@@ -28,10 +28,10 @@ const User = ({ user }: UserProps) => {
          <div
             ref={buttonRef}
             onClick={handleClick}
-            className="w-11 h-11 relative rounded-full overflow-hidden p-1.5 bg-(--backgroundSecondary) transition-all  hover:bg-(--bgHover) hover:scale-103"
+            className="w-12 h-12 relative rounded-full overflow-hidden p-1.5 bg-(--backgroundSecondary) transition-all  hover:bg-(--bgHover) hover:scale-103"
          >
             {user?.image && (
-               <div className="w-8 h-8 relative rounded-full overflow-hidden">
+               <div className="w-9 h-9 relative rounded-full overflow-hidden">
                   <Image
                      src={user.image.url}
                      alt="User avatar"

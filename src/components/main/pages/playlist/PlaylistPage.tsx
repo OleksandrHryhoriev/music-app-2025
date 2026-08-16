@@ -20,23 +20,18 @@ const PlaylistPage = ({ playlist }: PlaylistPageProps) => {
          context={playlist.uri}
          bgColor={bgColor}
       >
-         <div
-            className="playlist-container w-full min-w-[420px] relative"
-            style={{ containerType: "inline-size" }}
-         >
-            <PlaylistHeader playlist={playlist} setBgColor={setBgColor} />
-            <div className="playlist-controls mb-5 relative z-2">
-               <div className="w-14 h-14 ml-10 rounded-full overflow-hidden">
-                  <PlayButton context={playlist.uri} color="#000000" />
-               </div>
+         <PlaylistHeader playlist={playlist} setBgColor={setBgColor} />
+         <div className="playlist-controls mb-5 relative z-2">
+            <div className="w-14 h-14 ml-10 rounded-full overflow-hidden">
+               <PlayButton context={playlist.uri} color="#000000" />
             </div>
-            <div className="playlist-content px-4 relative z-2">
-               <TrackList
-                  items={playlist.items}
-                  context={playlist.uri}
-                  type="playlist"
-               />
-            </div>
+         </div>
+         <div className="playlist-content px-4 relative z-2">
+            <TrackList
+               items={playlist.items}
+               context={playlist.uri}
+               type="playlist"
+            />
          </div>
       </MainWrapper>
    );

@@ -8,6 +8,15 @@ export default async function requestMusicApi(
    options?: RequestInit,
 ) {
    try {
+      // const session = await getSession();
+      // if (session) {
+      //    console.log(
+      //       "[requestMusicApi] Сесія знайдена?:",
+      //       session,
+      //       "Користувач:",
+      //       new Date(session?.expiresAt).toLocaleTimeString(),
+      //    );
+      // }
       const token = await getAccessToken();
 
       if (!token) {

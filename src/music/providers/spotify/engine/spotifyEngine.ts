@@ -2,12 +2,14 @@ import postPlayerState from "@/src/music/player/postPlayerState";
 import { SpotifyEngine } from "../../../engine/types";
 import getSpotifyPath, { SPOTIFY_PATH } from "../endpoints";
 import { toSpotifyRepeat } from "../repeatMode/adapters";
+import { reconnectPlayer } from "@/src/music/player/reconnectPlayer";
 
 export function createSpotifyEngine(): SpotifyEngine {
    let player: Spotify.Player | null = null;
 
    return {
       playbackType: "local",
+      deviceId: null,
       get sdk() {
          return player;
       },
@@ -23,12 +25,35 @@ export function createSpotifyEngine(): SpotifyEngine {
             uris?: string[];
             offset?: { position: number };
          } = { offset: offset };
+
          if (typeof uri === "string") {
             context = { context_uri: uri, ...context };
          } else {
             context = { uris: [...uri], offset: offset };
          }
-         await postPlayerState(apiPath, "play", "PUT", context);
+
+         let res = await postPlayerState(apiPath, "play", "PUT", context);
+
+         if (!res.ok) {
+            console.log("Try to Reconnect after press PLAY");
+            const d = this.deviceId;
+
+            if (d) {
+               const isReconnected = await reconnectPlayer(d);
+
+               if (isReconnected) {
+                  console.log(
+                     "Retrying Play request after successful wake up...",
+                  );
+                  res = await postPlayerState(apiPath, "play", "PUT", context);
+               } else {
+                  console.log("Reconnect failed. Player: ", this.sdk);
+               }
+            } else {
+               console.warn("Device ID not found. Forcing SDK connect.");
+               await this.sdk?.connect();
+            }
+         }
       },
       async resume() {
          this.sdk?.resume();

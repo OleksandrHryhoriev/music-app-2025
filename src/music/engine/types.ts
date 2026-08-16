@@ -15,6 +15,7 @@ export type BaseEngine = {
 export type SpotifyEngine = BaseEngine & {
    playbackType: "local";
    sdk: Spotify.Player | null;
+   deviceId: string | null;
    resumeLocal: () => Promise<void>;
    togglePlayLocal: () => Promise<void>;
 };

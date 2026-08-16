@@ -5,7 +5,7 @@ import { TrackType } from "@/src/types/types";
 import { useEffect, useState } from "react";
 import TrackAdded from "./TrackAdded";
 import TrackAlbum from "./TrackAlbum";
-import "./TrackList.css";
+import "./TrackListStyles.css";
 import TrackListHeader from "./TrackListHeader";
 import TrackListItem from "./TrackListItem";
 

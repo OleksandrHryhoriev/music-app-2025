@@ -8,8 +8,8 @@ interface BaseData {
 }
 interface Image {
    url: string;
-   height: number | null;
-   width: number | null;
+   height?: number | null;
+   width?: number | null;
 }
 export interface MusicBaseType extends BaseData {
    image?: Image;
@@ -61,7 +61,7 @@ export interface AlbumType extends MusicBaseType {
 }
 
 export interface PlaybackTrack extends MusicBaseType {
-   album?: MusicBaseType;
+   album?: Omit<MusicBaseType, "id">;
    artists: BaseData[];
    duration: number;
 }

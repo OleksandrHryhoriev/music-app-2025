@@ -8,18 +8,18 @@ export default function App({
    children: React.ReactNode;
 }>) {
    return (
-      <div className="app h-screen">
-         <div className="relative max-w-['1920px'] h-full overflow-hidden my-0 mx-auto px-2.5 grid grid-rows-[auto_1fr_88px] grid-cols-[auto_1fr_auto] gap-x-2">
+      <div className="app w-full h-screen">
+         <div className="relative min-w-[500px] h-full overflow-hidden my-0 mx-auto px-2.5 grid grid-rows-[auto_1fr_88px] grid-cols-[auto_1fr_auto] gap-x-2">
             <div className="col-span-3 relative z-100">
                <Header />
             </div>
-            <div className="library bg-[#1c1c1c] rounded-[8px] overflow-hidden">
+            <div className="library bg-(--backgroundSecondary) rounded-[8px] overflow-hidden bottom-line">
                <Library />
             </div>
-            <main className="main bg-[#1c1c1c] rounded-[8px] overflow-hidden">
+            <main className="main bg-(--backgroundSecondary) rounded-[8px] overflow-hidden bottom-line">
                {children}
             </main>
-            <div className="now-playing-view bg-[#1c1c1c] rounded-[8px] p-2">
+            <div className="now-playing-view bg-(--backgroundSecondary) rounded-[8px] p-2 bottom-line">
                Now playing
             </div>
             <div className="col-span-3">

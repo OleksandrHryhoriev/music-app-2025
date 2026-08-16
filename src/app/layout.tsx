@@ -5,6 +5,7 @@ import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import { getClientProvider } from "../music/providers/getMusicProvider";
 import { PlayerProvider } from "../components/PlayerProvider";
+// import { getAccessToken } from "../lib/auth/authSession";
 
 // const bitsumishi = localFont({
 //    src: [
@@ -25,6 +26,7 @@ import { PlayerProvider } from "../components/PlayerProvider";
 const ubuntu = Ubuntu({
    weight: "400",
    display: "swap",
+   preload: false,
    variable: "--font-ubuntu",
 });
 
@@ -39,6 +41,8 @@ export default async function RootLayout({
    children: React.ReactNode;
 }>) {
    const provider = await getClientProvider();
+   // const token = await getAccessToken();
+   // console.log(token);
 
    return (
       <html lang="en">

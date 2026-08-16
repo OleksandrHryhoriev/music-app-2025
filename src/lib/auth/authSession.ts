@@ -12,9 +12,9 @@ type SessionData = {
    expiresAt: number;
 };
 
-function isExpired(session: SessionData | null): boolean {
+export function isExpired(session: SessionData | null): boolean {
    if (!session) return true;
-   return Date.now() + 30000 >= session.expiresAt;
+   return session.expiresAt - Date.now() <= 10 * 60 * 1000;
 }
 
 async function getSessionData(userId: string): Promise<SessionData | null> {
@@ -37,11 +37,11 @@ async function getSessionData(userId: string): Promise<SessionData | null> {
    };
 }
 
-async function refreshSession(
+export async function refreshSession(
    session: SessionData,
 ): Promise<SessionData | null> {
    try {
-      console.log("Try to refresh session", session);
+      // console.log("Try to refresh session", session);
       const refreshed = await withRefreshLock(session.userId, () =>
          refreshAccessToken({
             refresh_token: session.refreshToken!,
@@ -96,13 +96,13 @@ export const getUser = cache(async () => {
 
 //    return await ensureFreshSession(user.id);
 // }
-export const getSession = cache(async (): Promise<SessionData | null> => {
+export const getSession = async (): Promise<SessionData | null> => {
    const session = await auth();
    const user = session?.user;
    if (!user?.id) return null;
 
    return await _ensureFreshSession(user.id);
-});
+};
 
 export async function getAccessToken(): Promise<string | null> {
    const session = await getSession();

@@ -19,7 +19,7 @@ const MainWrapper = ({
 }: MainWrapperProps) => {
    return (
       <div className="main-wrapper anim-container w-full h-full relative">
-         <div className="w-full min-w-[420px] h-16 absolute top-0 z-10 ">
+         <div className="w-full min-w-(--mainMinWidth) h-16 absolute top-0 z-10 ">
             <div
                className="header-scroll w-full h-full sticky"
                style={{ backgroundColor: bgColor }}
@@ -32,7 +32,14 @@ const MainWrapper = ({
                </div>
             </div>
          </div>
-         <CustomScrollbar>{children}</CustomScrollbar>
+         <CustomScrollbar>
+            <div
+               className="main-container w-full min-w-(--mainMinWidth) relative"
+               style={{ containerType: "inline-size" }}
+            >
+               {children}
+            </div>
+         </CustomScrollbar>
       </div>
    );
 };

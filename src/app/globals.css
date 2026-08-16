@@ -2,6 +2,7 @@
 @import "tailwindcss";
 
 :root {
+   /* COLORS */
    --backgroundMain: black;
    --backgroundSecondary: #1c1c1c;
    --textMainColor: #ffffff;
@@ -10,6 +11,9 @@
    --bgActiveHover: #4e4e4e;
    --bgActive: #383838;
    --bgHover: #272727;
+
+   /* DIMENTIONS */
+   --mainMinWidth: 420px;
 }
 @theme inline {
    --color-background: var(--backgroundMain);
@@ -36,6 +40,19 @@
    .truncate-lh {
       @apply truncate;
       line-height: 1.2;
+   }
+
+   .bottom-line {
+      position: relative;
+   }
+   .bottom-line::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--backgroundSecondary);
    }
 
    /* Text hover underline effect */
